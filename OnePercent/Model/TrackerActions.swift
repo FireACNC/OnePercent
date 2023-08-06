@@ -14,7 +14,6 @@ func addTracker(withAttributes attributes: [String: Any], to viewContext: NSMana
     withAnimation {
         let newItem = AimTracker(context: viewContext)
         // Initialize Default Status
-        newItem.is_archived = false
         newItem.is_completed = false
         newItem.curr_progress = 0
         

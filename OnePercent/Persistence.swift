@@ -13,12 +13,25 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
+        var item_id = 0
+        // Create some current progress
         for index in 0..<3 {
             let newItem = AimTracker(context: viewContext)
             newItem.start_date = Date()
-            newItem.title = "Test " + String(index)
+            newItem.title = "Current Aim " + String(item_id)
             newItem.total_progress = 5
             newItem.default_step = 1
+            item_id += 1
+        }
+        // Create some completed progress
+        for index in 0..<3 {
+            let newItem = AimTracker(context: viewContext)
+            newItem.start_date = Date()
+            newItem.title = "Completed Aim " + String(item_id)
+            newItem.total_progress = 5
+            newItem.default_step = 1
+            newItem.is_completed = true
+            item_id += 1
         }
         do {
             try viewContext.save()

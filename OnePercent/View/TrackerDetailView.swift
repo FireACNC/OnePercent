@@ -21,29 +21,43 @@ struct TrackerDetailView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("""
+        let startDate = tracker.start_date ?? Date(timeIntervalSince1970: 0)
+        let endDate = tracker.start_date ?? Date(timeIntervalSince1970: 0)
+
+        let detail = tracker.is_completed ? """
             Title: \(tracker.title ?? "")
             Current Progress: \(currentProgress)
             Total Progress: \(tracker.total_progress)
-            """)
+            Started on: \(itemDateFormatter.string(from: startDate))
+            Completed on: \(itemDateFormatter.string(from: endDate))
+            """ : """
+            Title: \(tracker.title ?? "")
+            Current Progress: \(currentProgress)
+            Total Progress: \(tracker.total_progress)
+            Started on: \(itemDateFormatter.string(from: startDate))
+            """
+        
+        VStack {
+            Text(detail)
             
-            Button(action: {
-                incrementProgress()
-                if tracker.curr_progress >= tracker.total_progress {
-                    congratsPageController.isShowingCongratsPage = true
-                    completeTracker()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self.presentationMode.wrappedValue.dismiss()
-                        // TODO: (late) maybe add a guide for checking complete?
+            if !tracker.is_completed {
+                Button(action: {
+                    incrementProgress()
+                    if tracker.curr_progress >= tracker.total_progress {
+                        congratsPageController.isShowingCongratsPage = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            completeTracker()
+                            self.presentationMode.wrappedValue.dismiss()
+                            // TODO: (late) maybe add a guide for checking complete?
+                        }
                     }
+                }) {
+                    Text("Increment Progress")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
-            }) {
-                Text("Increment Progress")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
             }
         }
     }
@@ -61,7 +75,7 @@ struct TrackerDetailView: View {
     
     private func completeTracker() {
         tracker.is_completed = true
-
+        tracker.end_date = Date()
         do {
             try viewContext.save()
         } catch {

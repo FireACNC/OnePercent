@@ -22,22 +22,22 @@ struct ContentView: View {
                         Label("Trackers", systemImage: "list.bullet")
                     }
                 
-                Text("Timer")
+                TimerView()
+                    .environment(\.managedObjectContext, viewContext)
                     .tabItem {
                         Label("Timer", systemImage: "clock")
                     }
                 
-                Text("Completed Trackers")
+                CompletedTrackersView()
+                    .environment(\.managedObjectContext, viewContext)
                     .tabItem {
                         Label("Completed", systemImage: "checkmark.circle")
                     }
-                
                 
                 Text("User Profile")
                     .tabItem {
                         Label("Profile", systemImage: "person.circle")
                     }
-                // TODO: archived?
             }
         }
     }

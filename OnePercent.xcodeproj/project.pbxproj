@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150A53B92A7FFA1C0037D306 /* CompletedTrackersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A53B82A7FFA1C0037D306 /* CompletedTrackersView.swift */; };
+		150A53BB2A8007E10037D306 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A53BA2A8007E10037D306 /* TimerView.swift */; };
 		151894C32A51D07600145985 /* TrackerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151894C22A51D07600145985 /* TrackerDetailView.swift */; };
 		15453BBC29B058F800245605 /* OnePercentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15453BBB29B058F800245605 /* OnePercentApp.swift */; };
 		15453BBE29B058F800245605 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15453BBD29B058F800245605 /* ContentView.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		150A53B82A7FFA1C0037D306 /* CompletedTrackersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTrackersView.swift; sourceTree = "<group>"; };
+		150A53BA2A8007E10037D306 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		151894C22A51D07600145985 /* TrackerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerDetailView.swift; sourceTree = "<group>"; };
 		15453BB829B058F800245605 /* OnePercent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnePercent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15453BBB29B058F800245605 /* OnePercentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePercentApp.swift; sourceTree = "<group>"; };
@@ -89,8 +93,10 @@
 			isa = PBXGroup;
 			children = (
 				15453BBD29B058F800245605 /* ContentView.swift */,
+				150A53B82A7FFA1C0037D306 /* CompletedTrackersView.swift */,
 				158439BB2A61A7CE002A76CB /* CurrentTrackersView.swift */,
 				151894C22A51D07600145985 /* TrackerDetailView.swift */,
+				150A53BA2A8007E10037D306 /* TimerView.swift */,
 				15C69F9D29BBDE2E0016B4C5 /* NewTrackerView.swift */,
 				15D8A7412A643DF4000EDB6A /* MiniPagesViews */,
 			);
@@ -186,10 +192,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				15C69F9C29BBD7030016B4C5 /* TrackerActions.swift in Sources */,
+				150A53B92A7FFA1C0037D306 /* CompletedTrackersView.swift in Sources */,
 				15453BC529B058F900245605 /* Persistence.swift in Sources */,
 				15453BBE29B058F800245605 /* ContentView.swift in Sources */,
 				15C69FA029BBDF6F0016B4C5 /* Utils.swift in Sources */,
 				151894C32A51D07600145985 /* TrackerDetailView.swift in Sources */,
+				150A53BB2A8007E10037D306 /* TimerView.swift in Sources */,
 				158439BC2A61A7CE002A76CB /* CurrentTrackersView.swift in Sources */,
 				15D8A7432A643E05000EDB6A /* CongratsPageView.swift in Sources */,
 				15453BC829B058F900245605 /* OnePercent.xcdatamodeld in Sources */,
