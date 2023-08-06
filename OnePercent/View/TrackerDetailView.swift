@@ -65,22 +65,14 @@ struct TrackerDetailView: View {
     private func incrementProgress() {
         tracker.curr_progress += tracker.default_step
         currentProgress = Int(tracker.curr_progress)
-        
-        do {
-            try viewContext.save()
-        } catch {
-            print("Error saving context: \(error)")
-        }
+        save(context: viewContext)
+
     }
     
     private func completeTracker() {
         tracker.is_completed = true
         tracker.end_date = Date()
-        do {
-            try viewContext.save()
-        } catch {
-            print("Error saving context: \(error)")
-        }
+        save(context: viewContext)
     }
 }
 

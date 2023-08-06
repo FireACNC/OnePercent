@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="AimTracker" representedClassName="AimTracker" syncable="YES" codeGenerationType="class">
+    <entity name="AimTracker" representedClassName=".AimTracker" syncable="YES" codeGenerationType="class">
         <attribute name="curr_progress" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="default_step" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="default_step" optional="YES" attributeType="Integer 64" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="end_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="is_completed" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

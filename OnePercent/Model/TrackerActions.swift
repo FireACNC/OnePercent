@@ -9,6 +9,15 @@ import Foundation
 import CoreData
 import SwiftUI
 
+func save(context: NSManagedObjectContext) {
+    do {
+        try context.save()
+    } catch {
+        let nsError = error as NSError
+        print("unable to save the data")
+        fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    }
+}
 
 func addTracker(withAttributes attributes: [String: Any], to viewContext: NSManagedObjectContext) {
     withAnimation {
@@ -16,7 +25,7 @@ func addTracker(withAttributes attributes: [String: Any], to viewContext: NSMana
         // Initialize Default Status
         newItem.is_completed = false
         newItem.curr_progress = 0
-        
+        print("adding tracker")
         
         for (key, value) in attributes {
             switch key {
@@ -33,24 +42,13 @@ func addTracker(withAttributes attributes: [String: Any], to viewContext: NSMana
             }
         }
         
-        do {
-            try viewContext.save()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
+        save(context: viewContext)
     }
 }
 
 func deleteTrackers(offsets: IndexSet, from viewContext: NSManagedObjectContext, items: FetchedResults<AimTracker>) {
     withAnimation {
         offsets.map { items[$0] }.forEach(viewContext.delete)
-
-        do {
-            try viewContext.save()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
+        save(context: viewContext)
     }
 }

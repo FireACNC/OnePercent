@@ -9,8 +9,8 @@ import SwiftUI
 
 @main
 struct OnePercentApp: App {
-    let persistenceController = PersistenceController.shared
-
+    @StateObject private var persistenceController = PersistenceController()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

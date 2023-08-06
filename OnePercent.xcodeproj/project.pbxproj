@@ -74,7 +74,6 @@
 				15453BBB29B058F800245605 /* OnePercentApp.swift */,
 				15C69F9929BBD4BF0016B4C5 /* View */,
 				15C69F9A29BBD4C90016B4C5 /* Model */,
-				15453BC429B058F900245605 /* Persistence.swift */,
 				15453BBF29B058F900245605 /* Assets.xcassets */,
 				15453BC129B058F900245605 /* Preview Content */,
 			);
@@ -107,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				15453BC629B058F900245605 /* OnePercent.xcdatamodeld */,
+				15453BC429B058F900245605 /* Persistence.swift */,
 				15C69F9B29BBD7030016B4C5 /* TrackerActions.swift */,
 				15C69F9F29BBDF6F0016B4C5 /* Utils.swift */,
 			);

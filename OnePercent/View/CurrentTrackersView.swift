@@ -56,7 +56,7 @@ struct CurrentTrackersView: View {
             .navigationTitle("My Aim Trackers")
         }
         .fullScreenCover(isPresented: $isShowingAddView) {
-            NewTrackerView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            NewTrackerView().environment(\.managedObjectContext, viewContext)
         }
         .fullScreenCover(isPresented: $congratsPageController.isShowingCongratsPage) {
             CongratsPageView()

@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct NewTrackerView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode

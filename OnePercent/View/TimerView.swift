@@ -117,12 +117,7 @@ struct TimerView: View {
     private func incrementAimProgress() {
         guard let selectedTracker = selectedTracker else { return }
         selectedTracker.curr_progress += selectedTracker.default_step
-
-        do {
-            try viewContext.save()
-        } catch {
-            print("Error saving context: \(error)")
-        }
+        save(context: viewContext)
     }
 }
 
