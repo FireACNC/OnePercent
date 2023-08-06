@@ -33,7 +33,10 @@ struct TrackerDetailView: View {
                 if tracker.curr_progress >= tracker.total_progress {
                     congratsPageController.isShowingCongratsPage = true
                     completeTracker()
-                    self.presentationMode.wrappedValue.dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.presentationMode.wrappedValue.dismiss()
+                        // TODO: (late) maybe add a guide for checking complete?
+                    }
                 }
             }) {
                 Text("Increment Progress")

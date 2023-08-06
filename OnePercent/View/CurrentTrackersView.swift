@@ -61,7 +61,7 @@ private let itemFormatter: DateFormatter = {
     formatter.dateStyle = .medium
     formatter.timeStyle = .none
     return formatter
-}()
+} ()
 
 struct CurrentTrackersView_Previews: PreviewProvider {
     static var previews: some View {
