@@ -24,6 +24,7 @@ struct ContentView: View {
                 
                 TimerView()
                     .environment(\.managedObjectContext, viewContext)
+                    .environmentObject(congratsPageController)
                     .tabItem {
                         Label("Timer", systemImage: "clock")
                     }

@@ -12,6 +12,7 @@ class CongratsPageController: ObservableObject {
 }
 
 struct CongratsPageView: View {
+    // TODO: what is the aim?
     @Environment(\.presentationMode) private var presentationMode
         
     var body: some View {

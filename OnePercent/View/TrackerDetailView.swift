@@ -24,18 +24,18 @@ struct TrackerDetailView: View {
         let startDate = tracker.start_date ?? Date(timeIntervalSince1970: 0)
         let endDate = tracker.start_date ?? Date(timeIntervalSince1970: 0)
 
-        let detail = tracker.is_completed ? """
-            Title: \(tracker.title ?? "")
-            Current Progress: \(currentProgress)
-            Total Progress: \(tracker.total_progress)
-            Started on: \(itemDateFormatter.string(from: startDate))
-            Completed on: \(itemDateFormatter.string(from: endDate))
-            """ : """
+        let general_detail = """
             Title: \(tracker.title ?? "")
             Current Progress: \(currentProgress)
             Total Progress: \(tracker.total_progress)
             Started on: \(itemDateFormatter.string(from: startDate))
             """
+        
+        let completed_detail = """
+            Completed on: \(itemDateFormatter.string(from: endDate))
+            """
+        
+        let detail = tracker.is_completed ? general_detail + "\n" + completed_detail : general_detail
         
         VStack {
             Text(detail)
