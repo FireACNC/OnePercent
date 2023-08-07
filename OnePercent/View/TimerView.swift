@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftUI
 
 struct TimerView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -27,13 +26,15 @@ struct TimerView: View {
     var body: some View {
         VStack {
             // Aim selection
-            Picker("Select Aim", selection: $selectedTracker) {
-                ForEach(items) { tracker in
-                    Text(tracker.title ?? "")
+            if !items.isEmpty {
+                Picker("Select Aim", selection: $selectedTracker) {
+                    ForEach(items) { tracker in
+                        Text(tracker.title ?? "").tag(tracker as AimTracker?)
+                    }
                 }
+                .pickerStyle(.menu)
+                .padding()
             }
-            .pickerStyle(.menu)
-            .padding()
 
             // Timer display
             Text("\(timeFormatted(timerValue))")
@@ -42,7 +43,7 @@ struct TimerView: View {
 
             // Custom time selection
             HStack {
-                TimerNumberPicker(title: "Hours", value: $hours, range: 0...4)
+                TimerNumberPicker(title: "Hours", value: $hours, range: 0...24)
                 TimerNumberPicker(title: "Minutes", value: $minutes, range: 0...59)
                 TimerNumberPicker(title: "Seconds", value: $seconds, range: 0...59)
             }
@@ -78,6 +79,9 @@ struct TimerView: View {
             .padding()
         }
         .navigationTitle("Timer")
+        .onAppear() {
+            selectedTracker = items.first
+        }
     }
 
     private func timeFormatted(_ totalSeconds: Int) -> String {
@@ -88,7 +92,6 @@ struct TimerView: View {
     }
 
     private func startTimer() {
-        guard let selectedTracker = selectedTracker else { return }
         let totalTimeInSeconds = hours * 3600 + minutes * 60 + seconds
         timerValue = totalTimeInSeconds
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
@@ -96,7 +99,9 @@ struct TimerView: View {
                 timerValue -= 1
             } else {
                 timer?.invalidate()
-                incrementAimProgress()
+                if (selectedTracker != nil) {
+                    incrementAimProgress()
+                }
             }
         }
         isTimerRunning = true

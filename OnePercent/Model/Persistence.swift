@@ -19,6 +19,7 @@ class PersistenceController: ObservableObject {
             newItem.title = "Current Aim " + String(item_id)
             newItem.total_progress = 5
             newItem.default_step = 1
+            newItem.id = UUID()
             item_id += 1
         }
         // Create some completed progress
@@ -29,6 +30,7 @@ class PersistenceController: ObservableObject {
             newItem.total_progress = 5
             newItem.default_step = 1
             newItem.is_completed = true
+            newItem.id = UUID()
             item_id += 1
         }
         save(context: viewContext)

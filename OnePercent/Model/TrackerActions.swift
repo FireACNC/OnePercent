@@ -25,6 +25,7 @@ func addTracker(withAttributes attributes: [String: Any], to viewContext: NSMana
         // Initialize Default Status
         newItem.is_completed = false
         newItem.curr_progress = 0
+        newItem.id = UUID()
         print("adding tracker")
         
         for (key, value) in attributes {
