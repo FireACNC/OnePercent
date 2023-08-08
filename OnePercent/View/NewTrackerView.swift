@@ -20,10 +20,13 @@ struct NewTrackerView: View {
     @State private var title = ""
     @State private var total_progress = ""
     @State private var default_step = ""
-    @State private var notify = false
+    
+//    @State private var notify = false
     @State private var challenger = false
     @State private var limit_time = false
-    @State private var end_date = Date()
+    @State private var planned_end_date = Date()
+    @State private var timer_only = false
+    @State private var min_time_index = 0
     
     enum FocusField: Hashable {
         case field
@@ -75,10 +78,10 @@ struct NewTrackerView: View {
                 }
                 
                 DisclosureGroup("Advanced Settings", isExpanded: $showAdvancedSettings) {
-                    Toggle(isOn: $notify) {
-                        Text("Notify Me")
-                    }
-                    // TODO: Notify time ...
+//                    Toggle(isOn: $notify) {
+//                        Text("Notify Me")
+//                    }
+                    // TODO: (later) Notify time ...
                     
                     Toggle(isOn: $challenger) {
                         Text("Challenger Mode")
@@ -94,10 +97,26 @@ struct NewTrackerView: View {
                     }
                     
                     if limit_time {
-                        DatePicker(selection: $end_date, in: Date.now..., displayedComponents: .date) {
+                        DatePicker(selection: $planned_end_date, in: Date.now..., displayedComponents: .date) {
                             Text("End by")
                         }
                     }
+                    
+                    Toggle(isOn: $timer_only) {
+                        Text("Timer only")
+                    }
+                    
+                    if timer_only {
+                        Text("You will only be able to increment the progress via the timer.")
+                            .foregroundColor(.blue)
+
+                        Picker("Select Minimum Time", selection: $min_time_index) {
+                            ForEach(0..<minTimeOptions.count, id: \.self) { index in
+                                Text(minTimeOptions[index])
+                            }
+                        }
+                    }
+                    
                 }
                 .onChange(of: total_progress, perform: { _ in
                     showTotalZeroWarning = false

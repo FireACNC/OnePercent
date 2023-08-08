@@ -11,6 +11,8 @@ import Foundation
  * Time related
  */
 
+public let minTimeOptions = ["None", "1 min", "5 mins", "10 mins", "30 mins", "1 hour"]
+
 private let calendar = Calendar.current
 private let currentDate = Date()
 //let futureDate : Date = calendar.date(byAdding: .day, value: 100, to: currentDate)!
