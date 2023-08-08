@@ -195,9 +195,6 @@ struct TimerView: View {
     }
 
     private func cancelTimer() {
-//        if (!isTimerRunning) {
-//            resumeTimer()
-//        }
         timer?.cancel()
         isTimerRunning = false
         isTimerStarted = false
@@ -209,7 +206,6 @@ struct TimerView: View {
     }
 
     private func incrementAimProgress() {
-        // TODO: custom step
         // TODO: (late) add some animation to indicate times up
         // maybe just a banner at the bottom/top
         selectedTracker!.curr_progress += selectedTracker!.default_step

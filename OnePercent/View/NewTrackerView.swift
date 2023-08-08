@@ -25,6 +25,11 @@ struct NewTrackerView: View {
     @State private var limit_time = false
     @State private var end_date = Date()
     
+    enum FocusField: Hashable {
+        case field
+    }
+    @FocusState private var focusedField: FocusField?
+    
     @State private var showTotalZeroWarning = false
     @State private var showStepZeroWarning = false
     @State private var showStepExceedingWarning = false
@@ -36,8 +41,12 @@ struct NewTrackerView: View {
             Form {
                 Section(header: Text("Title")) {
                     TextField("My New Aim", text: $title)
-                    // TODO: add default focus
-                    // Default focus method: https://developer.apple.com/forums/thread/681962
+                        .focused($focusedField, equals: .field)
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    self.focusedField = .field
+                               }
+                        }
                 }
                 
                 Section(header: Text("Total Progress")) {
