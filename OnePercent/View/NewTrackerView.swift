@@ -25,7 +25,11 @@ struct NewTrackerView: View {
     @State private var limit_time = false
     @State private var end_date = Date()
     
-    @State private var show_advanced_settings = false
+    @State private var showTotalZeroWarning = false
+    @State private var showStepZeroWarning = false
+    @State private var showStepExceedingWarning = false
+    
+    @State private var showAdvancedSettings = false
     // TODO: (later) I want to __str__ __int__ __str__
     var body: some View {
         NavigationView {
@@ -34,24 +38,34 @@ struct NewTrackerView: View {
                     TextField("My New Aim", text: $title)
                     // TODO: add default focus
                     // Default focus method: https://developer.apple.com/forums/thread/681962
-                    
-                    // TODO: same name check
-                    // add a check function?
                 }
                 
                 Section(header: Text("Total Progress")) {
                     TextField("100", text: $total_progress)
                         .keyboardType(.numberPad)
-                    // TODO: num check
+                    if showTotalZeroWarning {
+                        Text("Total Progress must be greater than 0")
+                            .foregroundColor(.red)
+                            .font(.caption)
+                    }
                 }
                 
                 Section(header: Text("Default Step")) {
                     TextField("1", text: $default_step)
                         .keyboardType(.numberPad)
-                    // TODO: less than header check
+                    if showStepZeroWarning {
+                        Text("Default Step must be greater than 0")
+                            .foregroundColor(.red)
+                            .font(.caption)
+                    }
+                    if showStepExceedingWarning {
+                        Text("Default Step must be less than Total Progress")
+                            .foregroundColor(.red)
+                            .font(.caption)
+                    }
                 }
                 
-                DisclosureGroup("Advanced Settings", isExpanded: $show_advanced_settings) {
+                DisclosureGroup("Advanced Settings", isExpanded: $showAdvancedSettings) {
                     Toggle(isOn: $notify) {
                         Text("Notify Me")
                     }
@@ -72,11 +86,18 @@ struct NewTrackerView: View {
                     
                     if limit_time {
                         DatePicker(selection: $end_date, in: Date.now..., displayedComponents: .date) {
-                                        Text("End by")
-                                    }
+                            Text("End by")
+                        }
                     }
-                    
                 }
+                .onChange(of: total_progress, perform: { _ in
+                    showTotalZeroWarning = false
+                    showStepExceedingWarning = false
+                })
+                .onChange(of: default_step, perform: { _ in
+                    showStepZeroWarning = false
+                    showStepExceedingWarning = false
+                })
             }
             .navigationTitle("New Aim Tracker")
             .toolbar {
@@ -87,10 +108,13 @@ struct NewTrackerView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
+                        if (!validateNewTracker()) {
+                            return;
+                        }
                         addTracker(withAttributes: [
                             "title": (title == "") ? "My New Aim" : title,
-                            "total_progress": Int64(total_progress) ?? 100,
-                            "default_step": Int64(default_step) ?? 1,
+                            "total_progress": total_progress,
+                            "default_step": default_step,
                             "start_date": Date()
                             // TODO: add more attributes
                         ], to: viewContext, items: items)
@@ -99,6 +123,29 @@ struct NewTrackerView: View {
                 }
             }
         }
+    }
+    
+    private func validateNewTracker() -> Bool {
+        var hasError = false
+        let totalProgressValue = Int(total_progress) ?? 100
+        let defaultStepValue = Int(default_step) ?? 1
+        
+        if totalProgressValue <= 0 {
+            showTotalZeroWarning = true
+            hasError = true
+        }
+        
+        if defaultStepValue <= 0 {
+            showStepZeroWarning = true
+            hasError = true
+        }
+        
+        if defaultStepValue > totalProgressValue {
+            showStepExceedingWarning = true
+            hasError = true
+        }
+        
+        return !hasError
     }
 }
 

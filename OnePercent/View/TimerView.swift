@@ -174,7 +174,6 @@ struct TimerView: View {
         } else {
             cancelTimer()
             if (selectedTracker != nil) {
-                // TODO: add time spent?
                 incrementAimProgress()
                 if selectedTracker!.curr_progress >= selectedTracker!.total_progress {
                     congratsPageController.isShowingCongratsPage = true
@@ -214,6 +213,7 @@ struct TimerView: View {
         // TODO: (late) add some animation to indicate times up
         // maybe just a banner at the bottom/top
         selectedTracker!.curr_progress += selectedTracker!.default_step
+        selectedTracker!.time_spent += Int64(totalTimeInSeconds)
         save(context: viewContext)
         // TODO: (late) integrate with tracker detail view? or simply lock the screen?
         // I'd say locking the screen is a proper way to deal with this

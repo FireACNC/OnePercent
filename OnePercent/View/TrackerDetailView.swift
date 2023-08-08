@@ -35,6 +35,7 @@ struct TrackerDetailView: View {
             Current Progress: \(currentProgress)
             Total Progress: \(tracker.total_progress)
             Started on: \(itemDateFormatter.string(from: startDate))
+            Time Spent: \(timeFormatted(Int(tracker.time_spent)))
             
             - Debug use
             Order: \(tracker.order)
