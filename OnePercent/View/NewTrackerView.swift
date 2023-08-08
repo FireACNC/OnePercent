@@ -122,8 +122,8 @@ struct NewTrackerView: View {
                         }
                         addTracker(withAttributes: [
                             "title": (title == "") ? "My New Aim" : title,
-                            "total_progress": total_progress,
-                            "default_step": default_step,
+                            "total_progress": Int64(total_progress) ?? 100,
+                            "default_step": Int64(default_step) ?? 1,
                             "start_date": Date()
                             // TODO: add more attributes
                         ], to: viewContext, items: items)
