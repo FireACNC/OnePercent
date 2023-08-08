@@ -140,6 +140,7 @@ struct TimerView: View {
         }
         .fullScreenCover(isPresented: $congratsPageController.isShowingCongratsPage) {
             CongratsPageView()
+                .environmentObject(congratsPageController)
         }
     }
 
@@ -176,6 +177,7 @@ struct TimerView: View {
             if (selectedTracker != nil) {
                 incrementAimProgress()
                 if selectedTracker!.curr_progress >= selectedTracker!.total_progress {
+                    congratsPageController.completedAimTitle = selectedTracker!.title!
                     congratsPageController.isShowingCongratsPage = true
                     completeTracker(tracker: selectedTracker!, from: viewContext, items: items)
                 }

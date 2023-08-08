@@ -54,6 +54,7 @@ struct TrackerDetailView: View {
                 Button(action: {
                     incrementProgress()
                     if tracker.curr_progress >= tracker.total_progress {
+                        congratsPageController.completedAimTitle = tracker.title!
                         congratsPageController.isShowingCongratsPage = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                             completeTracker(tracker: tracker, from: viewContext, items: items)

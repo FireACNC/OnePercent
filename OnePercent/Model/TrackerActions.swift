@@ -29,6 +29,8 @@ func addTracker(withAttributes attributes: [String: Any], to viewContext: NSMana
         newItem.order = Int64(items.count)
         
         for (key, value) in attributes {
+            print(key, value)
+
             switch key {
             case "title":
                 newItem.title = value as? String

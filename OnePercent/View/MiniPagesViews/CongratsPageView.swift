@@ -9,18 +9,20 @@ import SwiftUI
 
 class CongratsPageController: ObservableObject {
     @Published var isShowingCongratsPage = false
+    var completedAimTitle = ""
 }
 
 struct CongratsPageView: View {
     // TODO: what is the aim?
     @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var congratsPageController: CongratsPageController
         
     var body: some View {
         VStack {
             Text("Congratulations!")
                 .font(.largeTitle)
                 .padding()
-            Text("You have reached your aim!")
+            Text("You have reached your aim: \(congratsPageController.completedAimTitle)!")
             Button("Close") {
                 presentationMode.wrappedValue.dismiss()
             }
@@ -29,8 +31,8 @@ struct CongratsPageView: View {
     }
 }
 
-struct CongratsPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        CongratsPageView()
-    }
-}
+//struct CongratsPageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CongratsPageView()
+//    }
+//}

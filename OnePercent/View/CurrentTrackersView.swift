@@ -58,6 +58,7 @@ struct CurrentTrackersView: View {
         }
         .fullScreenCover(isPresented: $congratsPageController.isShowingCongratsPage) {
             CongratsPageView()
+                .environmentObject(congratsPageController)
         }
     }
 }
