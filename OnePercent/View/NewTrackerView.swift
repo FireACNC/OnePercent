@@ -11,6 +11,12 @@ struct NewTrackerView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode
     
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \AimTracker.order, ascending: true)],
+        predicate: NSPredicate(format: "is_completed == %@", NSNumber(value: false)),
+        animation: .default)
+    private var items: FetchedResults<AimTracker>
+    
     @State private var title = ""
     @State private var total_progress = ""
     @State private var default_step = ""
@@ -87,7 +93,7 @@ struct NewTrackerView: View {
                             "default_step": Int64(default_step) ?? 1,
                             "start_date": Date()
                             // TODO: add more attributes
-                        ], to: viewContext)
+                        ], to: viewContext, items: items)
                         presentationMode.wrappedValue.dismiss()
                     }
                 }

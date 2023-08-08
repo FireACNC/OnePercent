@@ -26,7 +26,7 @@ struct ContentView: View {
                     .environment(\.managedObjectContext, viewContext)
                     .environmentObject(congratsPageController)
                     .tabItem {
-                        Label("Timer", systemImage: "clock")
+                        Label("Timer", systemImage: "timer")
                     }
                 
                 CompletedTrackersView()
@@ -35,9 +35,9 @@ struct ContentView: View {
                         Label("Completed", systemImage: "checkmark.circle")
                     }
                 
-                Text("User Profile")
+                Text("Settings")
                     .tabItem {
-                        Label("Profile", systemImage: "person.circle")
+                        Label("Settings", systemImage: "gearshape")
                     }
             }
         }

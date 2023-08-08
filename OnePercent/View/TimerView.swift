@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct TimerView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -23,6 +24,7 @@ struct TimerView: View {
     @State private var minutes: Int = 0
     @State private var seconds: Int = 0
     @State private var timerValue = 0
+    @State private var totalTimeInSeconds = 0
     @State private var timer: DispatchSourceTimer?
 
     @State private var isTimerRunning = false
@@ -36,13 +38,18 @@ struct TimerView: View {
         VStack {
             // Aim selection
             if (!items.isEmpty) {
-                Picker("Select Aim", selection: $selectedTracker) {
-                    ForEach(items) { tracker in
-                        Text(tracker.title ?? "").tag(tracker as AimTracker?)
+                if (!isTimerStarted) {
+                    Picker("Select Aim", selection: $selectedTracker) {
+                        ForEach(items) { tracker in
+                            Text(tracker.title ?? "").tag(tracker as AimTracker?)
+                        }
                     }
+                    .pickerStyle(.menu)
+                    .padding()
+                } else {
+                    Text("\(selectedTracker?.title ?? "")")
+                        .padding()
                 }
-                .pickerStyle(.menu)
-                .padding()
             }
 
             // Timer display
@@ -122,7 +129,7 @@ struct TimerView: View {
         .alert(isPresented: $showingCancelConfirmation) {
             Alert(
                 title: Text("Cancel Timer?"),
-                message: Text("Are you sure you want to cancel the timer?"),
+                message: Text("Are you sure you want to cancel the timer? The time you just spent will not be recorded!"),
                 primaryButton: .default(Text("Cancel")) {
                     resumeTimer()
                 },
@@ -136,15 +143,9 @@ struct TimerView: View {
         }
     }
 
-    private func timeFormatted(_ totalSeconds: Int) -> String {
-        let hours: Int = totalSeconds / 3600
-        let minutes: Int = (totalSeconds % 3600) / 60
-        let seconds: Int = totalSeconds % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-    }
-
     private func startTimer() {
-        let totalTimeInSeconds = hours * 3600 + minutes * 60 + seconds
+        totalTimeInSeconds = hours * 3600 + minutes * 60 + seconds
+        
         if (totalTimeInSeconds <= 0) {
             invalidTime = true
             return
@@ -177,9 +178,10 @@ struct TimerView: View {
                 incrementAimProgress()
                 if selectedTracker!.curr_progress >= selectedTracker!.total_progress {
                     congratsPageController.isShowingCongratsPage = true
-                    completeTracker()
+                    completeTracker(tracker: selectedTracker!, from: viewContext, items: items)
                 }
             }
+//            scheduleNotification(withTimeInterval: TimeInterval(timerValue), title: "Timer Complete", body: "Your timer has finished!")
         }
     }
         
@@ -209,16 +211,12 @@ struct TimerView: View {
 
     private func incrementAimProgress() {
         // TODO: custom step
+        // TODO: (late) add some animation to indicate times up
+        // maybe just a banner at the bottom/top
         selectedTracker!.curr_progress += selectedTracker!.default_step
         save(context: viewContext)
         // TODO: (late) integrate with tracker detail view? or simply lock the screen?
         // I'd say locking the screen is a proper way to deal with this
-    }
-    
-    private func completeTracker() {
-        selectedTracker!.is_completed = true
-        selectedTracker!.end_date = Date()
-        save(context: viewContext)
     }
 }
 
@@ -239,7 +237,7 @@ struct TimerNumberPicker: View {
                 }
             }
             .pickerStyle(.wheel)
-            .frame(height: 100) // Adjust the height as needed
+            .frame(height: 100)
         }
     }
 }

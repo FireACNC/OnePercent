@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1500A9722A826ED200DB7C59 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1500A9712A826ED200DB7C59 /* SettingsView.swift */; };
 		150A53B92A7FFA1C0037D306 /* CompletedTrackersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A53B82A7FFA1C0037D306 /* CompletedTrackersView.swift */; };
 		150A53BB2A8007E10037D306 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A53BA2A8007E10037D306 /* TimerView.swift */; };
 		151894C32A51D07600145985 /* TrackerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151894C22A51D07600145985 /* TrackerDetailView.swift */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1500A9702A8169F400DB7C59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1500A9712A826ED200DB7C59 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		150A53B82A7FFA1C0037D306 /* CompletedTrackersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTrackersView.swift; sourceTree = "<group>"; };
 		150A53BA2A8007E10037D306 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		151894C22A51D07600145985 /* TrackerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerDetailView.swift; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 		15453BBA29B058F800245605 /* OnePercent */ = {
 			isa = PBXGroup;
 			children = (
+				1500A9702A8169F400DB7C59 /* Info.plist */,
 				15453BBB29B058F800245605 /* OnePercentApp.swift */,
 				15C69F9929BBD4BF0016B4C5 /* View */,
 				15C69F9A29BBD4C90016B4C5 /* Model */,
@@ -95,6 +99,7 @@
 				150A53B82A7FFA1C0037D306 /* CompletedTrackersView.swift */,
 				158439BB2A61A7CE002A76CB /* CurrentTrackersView.swift */,
 				151894C22A51D07600145985 /* TrackerDetailView.swift */,
+				1500A9712A826ED200DB7C59 /* SettingsView.swift */,
 				150A53BA2A8007E10037D306 /* TimerView.swift */,
 				15C69F9D29BBDE2E0016B4C5 /* NewTrackerView.swift */,
 				15D8A7412A643DF4000EDB6A /* MiniPagesViews */,
@@ -203,6 +208,7 @@
 				15453BC829B058F900245605 /* OnePercent.xcdatamodeld in Sources */,
 				15453BBC29B058F800245605 /* OnePercentApp.swift in Sources */,
 				15C69F9E29BBDE2E0016B4C5 /* NewTrackerView.swift in Sources */,
+				1500A9722A826ED200DB7C59 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +340,7 @@
 				DEVELOPMENT_TEAM = V3LN4V7TN5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OnePercent/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -363,6 +370,7 @@
 				DEVELOPMENT_TEAM = V3LN4V7TN5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OnePercent/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

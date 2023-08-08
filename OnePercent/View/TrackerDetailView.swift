@@ -12,6 +12,12 @@ struct TrackerDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var congratsPageController: CongratsPageController
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \AimTracker.order, ascending: true)],
+        predicate: NSPredicate(format: "is_completed == %@", NSNumber(value: false)),
+        animation: .default)
+    private var items: FetchedResults<AimTracker>
 
     @State private var currentProgress: Int
     
@@ -29,6 +35,9 @@ struct TrackerDetailView: View {
             Current Progress: \(currentProgress)
             Total Progress: \(tracker.total_progress)
             Started on: \(itemDateFormatter.string(from: startDate))
+            
+            - Debug use
+            Order: \(tracker.order)
             """
         
         let completed_detail = """
@@ -46,7 +55,7 @@ struct TrackerDetailView: View {
                     if tracker.curr_progress >= tracker.total_progress {
                         congratsPageController.isShowingCongratsPage = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            completeTracker()
+                            completeTracker(tracker: tracker, from: viewContext, items: items)
                             self.presentationMode.wrappedValue.dismiss()
                             // TODO: (late) maybe add a guide for checking complete?
                         }
@@ -67,12 +76,6 @@ struct TrackerDetailView: View {
         currentProgress = Int(tracker.curr_progress)
         save(context: viewContext)
 
-    }
-    
-    private func completeTracker() {
-        tracker.is_completed = true
-        tracker.end_date = Date()
-        save(context: viewContext)
     }
 }
 

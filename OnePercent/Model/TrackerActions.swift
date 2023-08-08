@@ -19,14 +19,14 @@ func save(context: NSManagedObjectContext) {
     }
 }
 
-func addTracker(withAttributes attributes: [String: Any], to viewContext: NSManagedObjectContext) {
+func addTracker(withAttributes attributes: [String: Any], to viewContext: NSManagedObjectContext, items: FetchedResults<AimTracker>) {
     withAnimation {
         let newItem = AimTracker(context: viewContext)
         // Initialize Default Status
         newItem.is_completed = false
         newItem.curr_progress = 0
         newItem.id = UUID()
-        print("adding tracker")
+        newItem.order = Int64(items.count)
         
         for (key, value) in attributes {
             switch key {
@@ -47,9 +47,52 @@ func addTracker(withAttributes attributes: [String: Any], to viewContext: NSMana
     }
 }
 
-func deleteTrackers(offsets: IndexSet, from viewContext: NSManagedObjectContext, items: FetchedResults<AimTracker>) {
+// For deleteTrackers: items should be all current (not completed) items if reordering is true.
+func deleteTrackers(offsets: IndexSet, from viewContext: NSManagedObjectContext, items: FetchedResults<AimTracker>, reordering: Bool) {
     withAnimation {
-        offsets.map { items[$0] }.forEach(viewContext.delete)
+        let trackersToDelete = offsets.map { items[$0] }
+        let deletedOrder = trackersToDelete.first?.order ?? 0
+
+        for tracker in trackersToDelete {
+           viewContext.delete(tracker)
+        }
+
+        if (reordering) {
+            reorderUponRemoval(items: items, itemOrder: deletedOrder)
+        }
+
+        save(context: viewContext)
+   }
+}
+
+func completeTracker(tracker: AimTracker, from viewContext: NSManagedObjectContext, items: FetchedResults<AimTracker>) {
+    tracker.is_completed = true
+    tracker.end_date = Date()
+    reorderUponRemoval(items: items, itemOrder: tracker.order)
+    save(context: viewContext)
+}
+
+/* Reorder upon the deletion or completion of an item.
+ <items> should be all current trackers.
+ <itemOrder> should be the order of the removed item.
+ Note that this is a helper function and need to save in viewContext. */
+func reorderUponRemoval(items: FetchedResults<AimTracker>, itemOrder: Int64) {
+    for (_, tracker) in items.enumerated() {
+       if tracker.order > itemOrder {
+           tracker.order -= 1
+       }
+    }
+}
+
+func reorderTrackers(_ indices: IndexSet, newOffset: Int, from viewContext: NSManagedObjectContext, items: FetchedResults<AimTracker>) {
+    withAnimation {
+        var tempItems = items.map { $0 }
+        tempItems.move(fromOffsets: indices, toOffset: newOffset)
+        for (index, tracker) in tempItems.enumerated() {
+            tracker.order = Int64(index)
+        }
         save(context: viewContext)
     }
 }
+
+

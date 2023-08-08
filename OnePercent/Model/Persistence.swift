@@ -20,12 +20,14 @@ class PersistenceController: ObservableObject {
             newItem.total_progress = 5
             newItem.default_step = 1
             newItem.id = UUID()
+            newItem.order = Int64(item_id)
             item_id += 1
         }
         // Create some completed progress
         for index in 0..<3 {
             let newItem = AimTracker(context: viewContext)
             newItem.start_date = Date()
+            newItem.end_date = Date()
             newItem.title = "Completed Aim " + String(item_id)
             newItem.total_progress = 5
             newItem.default_step = 1

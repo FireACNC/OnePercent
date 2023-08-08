@@ -10,7 +10,7 @@ import SwiftUI
 struct CompletedTrackersView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \AimTracker.start_date, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \AimTracker.end_date, ascending: false)],
         predicate: NSPredicate(format: "is_completed == %@", NSNumber(value: true)), // Filter for completed trackers
         animation: .default)
     private var items: FetchedResults<AimTracker>
@@ -30,7 +30,7 @@ struct CompletedTrackersView: View {
                             }
                         }
                         .onDelete { indexSet in
-                            deleteTrackers(offsets: indexSet, from: viewContext, items: items)
+                            deleteTrackers(offsets: indexSet, from: viewContext, items: items, reordering: false)
                         }
                     }
                 }

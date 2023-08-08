@@ -12,9 +12,8 @@ struct CurrentTrackersView: View {
     @EnvironmentObject private var congratsPageController: CongratsPageController
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \AimTracker.start_date, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \AimTracker.order, ascending: true)],
         predicate: NSPredicate(format: "is_completed == %@", NSNumber(value: false)),
-        // TODO: customized order
         animation: .default)
     private var items: FetchedResults<AimTracker>
     
@@ -26,8 +25,6 @@ struct CurrentTrackersView: View {
                 if items.isEmpty {
                     Text("Time to start a new aim!")
                         .padding()
-                    // TODO: check if have completed
-
                 } else {
                     List {
                         ForEach(items) { tracker in
@@ -36,8 +33,9 @@ struct CurrentTrackersView: View {
                             }
                         }
                         .onDelete { indexSet in
-                            deleteTrackers(offsets: indexSet, from: viewContext, items: items)
+                            deleteTrackers(offsets: indexSet, from: viewContext, items: items, reordering: true)
                         }
+                        .onMove { indices, newOffset in reorderTrackers(indices, newOffset: newOffset, from: viewContext, items: items) }
                     }
                 }
             }
