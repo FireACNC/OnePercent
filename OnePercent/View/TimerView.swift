@@ -167,6 +167,10 @@ struct TimerView: View {
             showTimerPicker = false
         }
         timer?.resume()
+        
+        let title = "Time's Up!"
+        let body = (selectedTracker != nil) ? "You've made progress towards your goal: \(selectedTracker!.title)" : "Keep striving for success!"
+        requestScheduleNotification(withTimeInterval: TimeInterval(totalTimeInSeconds), title: title, body: body)
     }
     
     private func updateTimer() {

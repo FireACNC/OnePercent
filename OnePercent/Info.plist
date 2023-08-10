@@ -4,5 +4,9 @@
 <dict>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string>OnePercent will only send notifications when your timer is up or if you have scheduled reminder for your aim.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>processing</string>
+	</array>
 </dict>
 </plist>
