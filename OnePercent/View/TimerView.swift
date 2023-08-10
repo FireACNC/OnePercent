@@ -167,10 +167,7 @@ struct TimerView: View {
             showTimerPicker = false
         }
         timer?.resume()
-        
-        let title = "Time's Up!"
-        let body = (selectedTracker != nil) ? "You've made progress towards your goal: \(selectedTracker!.title)" : "Keep striving for success!"
-        requestScheduleNotification(withTimeInterval: TimeInterval(totalTimeInSeconds), title: title, body: body)
+        scheduleTimerNotification()
     }
     
     private func updateTimer() {
@@ -186,18 +183,19 @@ struct TimerView: View {
                     completeTracker(tracker: selectedTracker!, from: viewContext, items: items)
                 }
             }
-//            scheduleNotification(withTimeInterval: TimeInterval(timerValue), title: "Timer Complete", body: "Your timer has finished!")
         }
     }
         
     private func pauseTimer() {
         timer?.suspend()
         isTimerRunning = false
+        removeNotification()
     }
     
     private func resumeTimer() {
         timer?.resume()
         isTimerRunning = true
+        scheduleTimerNotification()
     }
 
     private func cancelTimer() {
@@ -209,6 +207,7 @@ struct TimerView: View {
             showTimerPicker = true
         }
         timerValue = 0
+        removeNotification()
     }
 
     private func incrementAimProgress() {
@@ -219,6 +218,12 @@ struct TimerView: View {
         save(context: viewContext)
         // TODO: (late) integrate with tracker detail view? or simply lock the screen?
         // I'd say locking the screen is a proper way to deal with this
+    }
+    
+    private func scheduleTimerNotification() {
+        let title = "Time's Up!"
+        let body = (selectedTracker != nil) ? "You've made progress towards your goal: \(selectedTracker!.title!)" : "Keep striving for success!"
+        requestScheduleNotification(withTimeInterval: TimeInterval(timerValue), title: title, body: body)
     }
 }
 
