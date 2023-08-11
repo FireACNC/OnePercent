@@ -37,6 +37,10 @@ struct TrackerDetailView: View {
             Total Progress: \(tracker.total_progress)
             Started on: \(itemDateFormatter.string(from: startDate))
             Time Spent: \(timeFormatted(Int(tracker.time_spent)))
+            Limit Time Aim: \(tracker.limit_time ? "Yes" : "No")
+            Increment by Timer Only: \(tracker.timer_only ? "Yes" : "No")
+            Minimum Time Selection: \(minTimeOptions[Int(tracker.min_time_index)])
+            Challenger Mode: \(tracker.challenger ? "Enabled" : "Disabled")
             
             - Debug use
             Order: \(tracker.order)
@@ -51,24 +55,29 @@ struct TrackerDetailView: View {
         VStack {
             Text(detail)
             
-            if !tracker.is_completed && !tracker.timer_only {
-                Button(action: {
-                    incrementProgress()
-                    if tracker.curr_progress >= tracker.total_progress {
-                        congratsPageController.completedAimTitle = tracker.title!
-                        congratsPageController.isShowingCongratsPage = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            completeTracker(tracker: tracker, from: viewContext, items: items)
-                            self.presentationMode.wrappedValue.dismiss()
-                            // TODO: (late) maybe add a guide for checking complete?
+            if !tracker.is_completed {
+                if !tracker.timer_only {
+                    Button(action: {
+                        incrementProgress()
+                        if tracker.curr_progress >= tracker.total_progress {
+                            congratsPageController.completedAimTitle = tracker.title!
+                            congratsPageController.isShowingCongratsPage = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                completeTracker(tracker: tracker, from: viewContext, items: items)
+                                self.presentationMode.wrappedValue.dismiss()
+                                // TODO: (late) maybe add a guide for checking complete?
+                            }
                         }
+                    }) {
+                        Text("Increment Progress")
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
-                }) {
-                    Text("Increment Progress")
+                } else {
+                    Text("You can only increment the progress via the timer.")
                         .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
                 }
             }
             

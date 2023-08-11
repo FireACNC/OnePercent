@@ -32,7 +32,9 @@ struct TimerView: View {
     @State private var showClock = false
     @State private var showTimerPicker = true
     @State private var showingCancelConfirmation = false
+    
     @State private var invalidTime = false
+    @State private var invalidTimeValueString = "0 secs"
 
     var body: some View {
         VStack {
@@ -118,7 +120,7 @@ struct TimerView: View {
             }
             .padding()
             
-            Text(invalidTime ? "Please select a valid time" : " ")
+            Text(invalidTime ? "Please select a valid time greater than \(invalidTimeValueString)" : " ")
                 .foregroundColor(Color.red)
                 .offset(y:-15)
         }
@@ -146,8 +148,13 @@ struct TimerView: View {
 
     private func startTimer() {
         totalTimeInSeconds = hours * 3600 + minutes * 60 + seconds
+        var minTimeValue = 1
         
-        if (totalTimeInSeconds <= 0) {
+        if (selectedTracker != nil && (selectedTracker!.min_time_index > 0)) {
+            invalidTimeValueString = minTimeOptions[Int(selectedTracker!.min_time_index)]
+            minTimeValue = minTimeValues[Int(selectedTracker!.min_time_index)]
+        }
+        if (totalTimeInSeconds < minTimeValue) {
             invalidTime = true
             return
         }

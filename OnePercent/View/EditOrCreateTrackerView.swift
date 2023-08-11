@@ -120,7 +120,7 @@ struct EditOrCreateTrackerView: View {
 
                         Picker("Select Minimum Time", selection: $min_time_index) {
                             ForEach(0..<minTimeOptions.count, id: \.self) { index in
-                                Text(minTimeOptions[index])
+                                Text(minTimeOptions[index]).tag(index)
                             }
                         }
                     }
@@ -204,7 +204,7 @@ struct EditOrCreateTrackerView: View {
             "limit_time": limit_time,
             "planned_end_date": planned_end_date,
             "timer_only": timer_only,
-            "min_time_index": min_time_index,
+            "min_time_index": Int16(min_time_index),
             "challenger": challenger
             // TODO: add more attributes
         ], to: viewContext, items: items)

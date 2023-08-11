@@ -12,7 +12,7 @@ import Foundation
  */
 
 public let minTimeOptions = ["None", "1 min", "5 mins", "10 mins", "30 mins", "1 hour"]
-public let minTimeValue = [0, 60, 300, 600, 1800, 3600]
+public let minTimeValues = [0, 60, 300, 600, 1800, 3600]
 
 private let calendar = Calendar.current
 private let currentDate = Date()
@@ -54,7 +54,6 @@ func requestScheduleNotification(withTimeInterval timeInterval: TimeInterval, ti
             return
         case .notDetermined:
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { didAllow, error in
-                print(didAllow)
                 if didAllow {
                     scheduleNotification(withTimeInterval: timeInterval, title: title, body: body)
                 } else if let error = error {
@@ -69,8 +68,6 @@ func requestScheduleNotification(withTimeInterval timeInterval: TimeInterval, ti
 }
 
 func scheduleNotification(withTimeInterval timeInterval: TimeInterval, title: String, body: String) {
-    print("in")
-    print(timeInterval)
     let content = UNMutableNotificationContent()
     content.title = title
     content.body = body
