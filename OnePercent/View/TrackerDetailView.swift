@@ -20,6 +20,7 @@ struct TrackerDetailView: View {
     private var items: FetchedResults<AimTracker>
 
     @State private var currentProgress: Int
+    @State private var isEditing = false
     
     init(tracker: AimTracker) {
         self.tracker = tracker
@@ -50,7 +51,7 @@ struct TrackerDetailView: View {
         VStack {
             Text(detail)
             
-            if !tracker.is_completed {
+            if !tracker.is_completed && !tracker.timer_only {
                 Button(action: {
                     incrementProgress()
                     if tracker.curr_progress >= tracker.total_progress {
@@ -70,6 +71,20 @@ struct TrackerDetailView: View {
                         .cornerRadius(10)
                 }
             }
+            
+            // There's a bug if add toolbar to the navigation link, it may sometimes show duplicated toolbar and thus have a glitch.
+            if !tracker.challenger {
+                Button(action: {
+                    isEditing = true
+                }) {
+                    Text("Edit")
+                }
+                .padding()
+            }
+        }
+        .sheet(isPresented: $isEditing) {
+            EditOrCreateTrackerView(trackerToEdit: tracker)
+                .environment(\.managedObjectContext, viewContext)
         }
     }
     

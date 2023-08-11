@@ -19,7 +19,7 @@
 		15453BC829B058F900245605 /* OnePercent.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15453BC629B058F900245605 /* OnePercent.xcdatamodeld */; };
 		158439BC2A61A7CE002A76CB /* CurrentTrackersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158439BB2A61A7CE002A76CB /* CurrentTrackersView.swift */; };
 		15C69F9C29BBD7030016B4C5 /* TrackerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C69F9B29BBD7030016B4C5 /* TrackerActions.swift */; };
-		15C69F9E29BBDE2E0016B4C5 /* NewTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C69F9D29BBDE2E0016B4C5 /* NewTrackerView.swift */; };
+		15C69F9E29BBDE2E0016B4C5 /* EditOrCreateTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C69F9D29BBDE2E0016B4C5 /* EditOrCreateTrackerView.swift */; };
 		15C69FA029BBDF6F0016B4C5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C69F9F29BBDF6F0016B4C5 /* Utils.swift */; };
 		15D8A7432A643E05000EDB6A /* CongratsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D8A7422A643E05000EDB6A /* CongratsPageView.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +39,7 @@
 		15453BC729B058F900245605 /* OnePercent.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OnePercent.xcdatamodel; sourceTree = "<group>"; };
 		158439BB2A61A7CE002A76CB /* CurrentTrackersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTrackersView.swift; sourceTree = "<group>"; };
 		15C69F9B29BBD7030016B4C5 /* TrackerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerActions.swift; sourceTree = "<group>"; };
-		15C69F9D29BBDE2E0016B4C5 /* NewTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTrackerView.swift; sourceTree = "<group>"; };
+		15C69F9D29BBDE2E0016B4C5 /* EditOrCreateTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOrCreateTrackerView.swift; sourceTree = "<group>"; };
 		15C69F9F29BBDF6F0016B4C5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		15D8A7422A643E05000EDB6A /* CongratsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsPageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,7 +101,7 @@
 				151894C22A51D07600145985 /* TrackerDetailView.swift */,
 				1500A9712A826ED200DB7C59 /* SettingsView.swift */,
 				150A53BA2A8007E10037D306 /* TimerView.swift */,
-				15C69F9D29BBDE2E0016B4C5 /* NewTrackerView.swift */,
+				15C69F9D29BBDE2E0016B4C5 /* EditOrCreateTrackerView.swift */,
 				15D8A7412A643DF4000EDB6A /* MiniPagesViews */,
 			);
 			path = View;
@@ -207,7 +207,7 @@
 				15D8A7432A643E05000EDB6A /* CongratsPageView.swift in Sources */,
 				15453BC829B058F900245605 /* OnePercent.xcdatamodeld in Sources */,
 				15453BBC29B058F800245605 /* OnePercentApp.swift in Sources */,
-				15C69F9E29BBDE2E0016B4C5 /* NewTrackerView.swift in Sources */,
+				15C69F9E29BBDE2E0016B4C5 /* EditOrCreateTrackerView.swift in Sources */,
 				1500A9722A826ED200DB7C59 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

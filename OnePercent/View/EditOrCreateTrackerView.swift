@@ -1,5 +1,5 @@
 //
-//  NewAimView.swift
+//  EditOrCreateTrackerView.swift
 //  OnePercent
 //
 //  Created by 霍然 on 3/10/23.
@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct NewTrackerView: View {
+struct EditOrCreateTrackerView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode
+    
+    var trackerToEdit: AimTracker?
     
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \AimTracker.order, ascending: true)],
@@ -39,6 +41,21 @@ struct NewTrackerView: View {
     
     @State private var showAdvancedSettings = false
     // TODO: (later) I want to __str__ __int__ __str__
+    
+    init(trackerToEdit: AimTracker? = nil) {
+        self.trackerToEdit = trackerToEdit
+        if let trackerToEdit = trackerToEdit {
+            _title = State(initialValue: trackerToEdit.title ?? "")
+            _total_progress = State(initialValue: "\(trackerToEdit.total_progress)")
+            _default_step = State(initialValue: "\(trackerToEdit.default_step)")
+            _limit_time = State(initialValue: trackerToEdit.limit_time)
+            _planned_end_date = State(initialValue: trackerToEdit.planned_end_date ?? Date())
+            _timer_only = State(initialValue: trackerToEdit.timer_only)
+            _min_time_index = State(initialValue: Int(trackerToEdit.min_time_index))
+            _challenger = State(initialValue: trackerToEdit.challenger)
+        }
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -129,7 +146,7 @@ struct NewTrackerView: View {
                 })
             }
             .animation(.easeOut)
-            .navigationTitle("New Aim Tracker")
+            .navigationTitle(trackerToEdit == nil ? "New Aim Tracker" : "Edit Aim Tracker")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
@@ -137,22 +154,17 @@ struct NewTrackerView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
+                    Button(trackerToEdit == nil ? "Save" : "Update") {
                         if (!validateNewTracker()) {
                             return;
                         }
-                        addTracker(withAttributes: [
-                            "title": (title == "") ? "My New Aim" : title,
-                            "total_progress": Int64(total_progress) ?? 100,
-                            "default_step": Int64(default_step) ?? 1,
-                            "start_date": Date(),
-                            "limit_time": limit_time,
-                            "planned_end_date": planned_end_date,
-                            "timer_only": timer_only,
-                            "min_time_index": min_time_index,
-                            "challenger": challenger
-                            // TODO: add more attributes
-                        ], to: viewContext, items: items)
+                        
+                        if let tracker = trackerToEdit {
+                            updateTracker(tracker: tracker)
+                        } else {
+                            addNewTracker()
+                        }
+                        
                         presentationMode.wrappedValue.dismiss()
                     }
                 }
@@ -182,10 +194,39 @@ struct NewTrackerView: View {
         
         return !hasError
     }
+    
+    private func addNewTracker() {
+        addTracker(withAttributes: [
+            "title": (title == "") ? "My New Aim" : title,
+            "total_progress": Int64(total_progress) ?? 100,
+            "default_step": Int64(default_step) ?? 1,
+            "start_date": Date(),
+            "limit_time": limit_time,
+            "planned_end_date": planned_end_date,
+            "timer_only": timer_only,
+            "min_time_index": min_time_index,
+            "challenger": challenger
+            // TODO: add more attributes
+        ], to: viewContext, items: items)
+    }
+    
+    private func updateTracker(tracker: AimTracker) {
+        tracker.title = (title == "") ? "My New Aim" : title
+        tracker.total_progress = Int64(total_progress) ?? 100
+        tracker.default_step = Int64(default_step) ?? 1
+        tracker.limit_time = limit_time
+        tracker.planned_end_date = planned_end_date
+        tracker.timer_only = timer_only
+        tracker.min_time_index = Int16(min_time_index)
+        tracker.challenger = challenger
+
+        save(context: viewContext)
+    }
+
 }
 
-struct NewTrackerView_Previews: PreviewProvider {
+struct EditOrCreateTrackerView_Previews: PreviewProvider {
     static var previews: some View {
-        NewTrackerView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        EditOrCreateTrackerView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
