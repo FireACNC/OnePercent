@@ -216,8 +216,6 @@ struct TimerView: View {
         selectedTracker!.curr_progress += selectedTracker!.default_step
         selectedTracker!.time_spent += Int64(totalTimeInSeconds)
         save(context: viewContext)
-        // TODO: (late) integrate with tracker detail view? or simply lock the screen?
-        // I'd say locking the screen is a proper way to deal with this
     }
     
     private func scheduleTimerNotification() {

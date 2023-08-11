@@ -22,11 +22,11 @@ struct NewTrackerView: View {
     @State private var default_step = ""
     
 //    @State private var notify = false
-    @State private var challenger = false
     @State private var limit_time = false
     @State private var planned_end_date = Date()
     @State private var timer_only = false
     @State private var min_time_index = 0
+    @State private var challenger = false
     
     enum FocusField: Hashable {
         case field
@@ -79,18 +79,9 @@ struct NewTrackerView: View {
                 
                 DisclosureGroup("Advanced Settings", isExpanded: $showAdvancedSettings) {
 //                    Toggle(isOn: $notify) {
-//                        Text("Notify Me")
+//                        Text("Notify Me Everyday")
 //                    }
                     // TODO: (later) Notify time ...
-                    
-                    Toggle(isOn: $challenger) {
-                        Text("Challenger Mode")
-                    }
-                    
-                    if challenger {
-                        Text("You will no longer be able to change any settings of the aim after you begin.")
-                            .foregroundColor(.blue)
-                    }
                     
                     Toggle(isOn: $limit_time) {
                         Text("Limit Time Aim")
@@ -103,7 +94,7 @@ struct NewTrackerView: View {
                     }
                     
                     Toggle(isOn: $timer_only) {
-                        Text("Timer only")
+                        Text("Increment by Timer Only")
                     }
                     
                     if timer_only {
@@ -117,6 +108,16 @@ struct NewTrackerView: View {
                         }
                     }
                     
+                    
+                    Toggle(isOn: $challenger) {
+                        Text("Challenger Mode")
+                    }
+                    
+                    if challenger {
+                        Text("You will no longer be able to change any settings of the aim after you begin.")
+                            .foregroundColor(.blue)
+                    }
+                    
                 }
                 .onChange(of: total_progress, perform: { _ in
                     showTotalZeroWarning = false
@@ -127,6 +128,7 @@ struct NewTrackerView: View {
                     showStepExceedingWarning = false
                 })
             }
+            .animation(.easeOut)
             .navigationTitle("New Aim Tracker")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -143,7 +145,12 @@ struct NewTrackerView: View {
                             "title": (title == "") ? "My New Aim" : title,
                             "total_progress": Int64(total_progress) ?? 100,
                             "default_step": Int64(default_step) ?? 1,
-                            "start_date": Date()
+                            "start_date": Date(),
+                            "limit_time": limit_time,
+                            "planned_end_date": planned_end_date,
+                            "timer_only": timer_only,
+                            "min_time_index": min_time_index,
+                            "challenger": challenger
                             // TODO: add more attributes
                         ], to: viewContext, items: items)
                         presentationMode.wrappedValue.dismiss()

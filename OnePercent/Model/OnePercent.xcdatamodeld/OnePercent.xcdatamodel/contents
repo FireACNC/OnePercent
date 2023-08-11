@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AimTracker" representedClassName=".AimTracker" syncable="YES" codeGenerationType="class">
+        <attribute name="challenger" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="curr_progress" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="default_step" optional="YES" attributeType="Integer 64" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="end_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="is_completed" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="limit_time" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="min_time_index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="planned_end_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="start_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="time_spent" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timer_only" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String" defaultValueString=""/>
-        <attribute name="total_progress" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="total_progress" optional="YES" attributeType="Integer 64" usesScalarValueType="YES"/>
     </entity>
 </model>

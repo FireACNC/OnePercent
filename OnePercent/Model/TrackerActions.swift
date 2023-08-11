@@ -39,6 +39,16 @@ func addTracker(withAttributes attributes: [String: Any], to viewContext: NSMana
                 newItem.default_step = value as? Int64 ?? 1
             case "start_date":
                 newItem.start_date = value as? Date ?? Date()
+            case "limit_time":
+                newItem.limit_time = value as? Bool ?? false
+            case "planned_end_date":
+                newItem.planned_end_date = value as? Date ?? Date()
+            case "timer_only":
+                newItem.timer_only = value as? Bool ?? false
+            case "min_time_index":
+                newItem.min_time_index = value as? Int16 ?? 0
+            case "challenger":
+                newItem.challenger = value as? Bool ?? false
             default:
                 fatalError("Unknown key encountered: \(key)")
             }

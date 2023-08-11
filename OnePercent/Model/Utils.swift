@@ -12,6 +12,7 @@ import Foundation
  */
 
 public let minTimeOptions = ["None", "1 min", "5 mins", "10 mins", "30 mins", "1 hour"]
+public let minTimeValue = [0, 60, 300, 600, 1800, 3600]
 
 private let calendar = Calendar.current
 private let currentDate = Date()
@@ -35,7 +36,6 @@ func timeFormatted(_ totalSeconds: Int) -> String {
  * Notification related
  */
 
-// TODO: (late) figure out notification later
 // TODO: update this to also combine daily reminder
 // https://www.youtube.com/watch?v=dxe86OWc2mI
 
