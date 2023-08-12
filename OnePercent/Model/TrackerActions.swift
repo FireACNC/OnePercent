@@ -25,12 +25,13 @@ func addTracker(withAttributes attributes: [String: Any], to viewContext: NSMana
         // Initialize Default Status
         newItem.is_completed = false
         newItem.curr_progress = 0
-        newItem.id = UUID()
         newItem.order = Int64(items.count)
         
         for (key, value) in attributes {
 //            print(key, value)
             switch key {
+            case "id":
+                newItem.id = value as? UUID
             case "title":
                 newItem.title = value as? String
             case "total_progress":

@@ -196,7 +196,7 @@ struct TimerView: View {
     private func pauseTimer() {
         timer?.suspend()
         isTimerRunning = false
-        removeNotification()
+        removeTimerNotification()
     }
     
     private func resumeTimer() {
@@ -214,7 +214,7 @@ struct TimerView: View {
             showTimerPicker = true
         }
         timerValue = 0
-        removeNotification()
+        removeTimerNotification()
     }
 
     private func incrementAimProgress() {
@@ -228,7 +228,7 @@ struct TimerView: View {
     private func scheduleTimerNotification() {
         let title = "Time's Up!"
         let body = (selectedTracker != nil) ? "You've made progress towards your goal: \(selectedTracker!.title!)" : "Keep striving for success!"
-        requestScheduleNotification(withTimeInterval: TimeInterval(timerValue), title: title, body: body)
+        requestScheduleTimerNotification(withTimeInterval: TimeInterval(timerValue), title: title, body: body)
     }
 }
 

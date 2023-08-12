@@ -23,7 +23,8 @@ struct EditOrCreateTrackerView: View {
     @State private var total_progress = ""
     @State private var default_step = ""
     
-//    @State private var notify = false
+    @State private var notify = false
+    @State private var notify_time = Date()
     @State private var limit_time = false
     @State private var planned_end_date = Date()
     @State private var timer_only = false
@@ -95,10 +96,14 @@ struct EditOrCreateTrackerView: View {
                 }
                 
                 DisclosureGroup("Advanced Settings", isExpanded: $showAdvancedSettings) {
-//                    Toggle(isOn: $notify) {
-//                        Text("Notify Me Everyday")
-//                    }
-                    // TODO: (later) Notify time ...
+                    Toggle(isOn: $notify) {
+                        Text("Notify Me")
+                    }
+                    if notify {
+                        DatePicker(selection: $notify_time, displayedComponents: .hourAndMinute) {
+                            Text("Everyday at")
+                        }
+                    }
                     
                     Toggle(isOn: $limit_time) {
                         Text("Limit Time Aim")
@@ -159,10 +164,17 @@ struct EditOrCreateTrackerView: View {
                             return;
                         }
                         
+                        var id = UUID();
                         if let tracker = trackerToEdit {
                             updateTracker(tracker: tracker)
+                            id = tracker.id!
                         } else {
-                            addNewTracker()
+                            addNewTracker(id: id)
+                        }
+                        
+                        if notify {
+                            removeNotification(identifier: id.uuidString)
+                            scheduleDailyNotification(idString: id.uuidString)
                         }
                         
                         presentationMode.wrappedValue.dismiss()
@@ -195,8 +207,9 @@ struct EditOrCreateTrackerView: View {
         return !hasError
     }
     
-    private func addNewTracker() {
+    private func addNewTracker(id: UUID) {
         addTracker(withAttributes: [
+            "id": id,
             "title": (title == "") ? "My New Aim" : title,
             "total_progress": Int64(total_progress) ?? 100,
             "default_step": Int64(default_step) ?? 1,
@@ -222,7 +235,16 @@ struct EditOrCreateTrackerView: View {
 
         save(context: viewContext)
     }
+    
+    private func scheduleDailyNotification(idString: String) {
+        let title = "Time to work on \(title)!"
+        let body = "Progress blooms from tiny seeds."
+        let selectedTime = calendar.date(bySettingHour: calendar.component(.hour, from: notify_time), minute: calendar.component(.minute, from: notify_time), second: 0, of: Date())!
+            
+        let components = calendar.dateComponents([.hour, .minute], from: selectedTime)
 
+        requestScheduleDailyNotification(withComponents: components, title: title, body: body, identifier: idString)
+    }
 }
 
 struct EditOrCreateTrackerView_Previews: PreviewProvider {
