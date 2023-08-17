@@ -3,6 +3,8 @@
 
 OnePercent is a goal tracking app built using SwiftUI for iOS. It allows users to set and track their goals, utilizing timers and custom progress trackers.
 
+Note: During the development process, OpenAI's ChatGPT was used to assist in generating code snippets, troubleshooting, and getting guidance on various aspects of the app's functionality and design.
+
 ### Features
 
 - Create and manage aim trackers with customizable attributes.
