@@ -19,6 +19,10 @@ struct CurrentTrackersView: View {
     
     @State private var isShowingAddView = false
     
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "UniSansHeavyCAPS", size: 40)!]
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -28,29 +32,41 @@ struct CurrentTrackersView: View {
                 } else {
                     List {
                         ForEach(items) { tracker in
-                            NavigationLink(destination: TrackerDetailView(tracker: tracker)) {
-                                Text(tracker.title ?? "")
-                            }
+                            Text(tracker.title ?? "")
+                                .font(.title)
+                                .foregroundColor(.black)
+                                .padding()
+                            
+                                .background(
+                                    NavigationLink("", destination: TrackerDetailView(tracker: tracker))
+                                        .opacity(0)
+                                )
+                                .listRowBackground(
+                                    TaskCardView(tracker: tracker)
+                                )
+                                .listRowSeparator(.hidden)
                         }
                         .onDelete { indexSet in
                             deleteTrackers(offsets: indexSet, from: viewContext, items: items, reordering: true)
                         }
-                        .onMove { indices, newOffset in reorderTrackers(indices, newOffset: newOffset, from: viewContext, items: items) }
+                        .onMove { indices, newOffset in reorderTrackers(indices, newOffset: newOffset, from: viewContext, items: items)
+                        }
                     }
+                    .listStyle(.plain)
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: {
-                        isShowingAddView = true
-                    }) {
-                        Label("Add Aim Tracker", systemImage: "plus")
-                    }
-                }
-            }
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    EditButton()
+//                }
+//                ToolbarItem {
+//                    Button(action: {
+//                        isShowingAddView = true
+//                    }) {
+//                        Label("Add Aim Tracker", systemImage: "plus")
+//                    }
+//                }
+//            }
             .navigationTitle("My Aim Trackers")
         }
         .fullScreenCover(isPresented: $isShowingAddView) {

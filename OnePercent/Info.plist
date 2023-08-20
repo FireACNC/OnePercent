@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Uni Sans Heavy.otf</string>
+		<string>LeagueSpartan-Bold.otf</string>
+	</array>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string>OnePercent will only send notifications when your timer is up or if you have scheduled reminder for your aim.</string>
 	<key>UIBackgroundModes</key>

@@ -90,11 +90,23 @@ struct TrackerDetailView: View {
                 }
                 .padding()
             }
+            
+            Button(action: { self.presentationMode.wrappedValue.dismiss()}) {
+                Text("Custom go back")
+            }
         }
         .sheet(isPresented: $isEditing) {
             EditOrCreateTrackerView(trackerToEdit: tracker)
                 .environment(\.managedObjectContext, viewContext)
         }
+        .navigationBarBackButtonHidden(true)
+        
+        // Nav bar back button?
+//        .navigationBarItems(leading:
+//            Button(action: { self.presentationMode.wrappedValue.dismiss()}) {
+//                Text("Custom go back")
+//            }
+//        )
     }
     
     private func incrementProgress() {
@@ -105,7 +117,24 @@ struct TrackerDetailView: View {
     }
 }
 
+// Enable Swipe Back Action
+// https://stackoverflow.com/questions/59234958/swiftui-navigationbarbackbuttonhidden-swipe-back-gesture
 
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
+    }
+
+    // To make it works also with ScrollView
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        true
+    }
+}
 
 //struct TrackerDetailView_Previews: PreviewProvider {
 //    static var previews: some View {

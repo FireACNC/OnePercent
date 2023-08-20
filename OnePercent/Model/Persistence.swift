@@ -65,3 +65,17 @@ class PersistenceController: ObservableObject {
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
 }
+
+extension AimTracker {
+    static func sampleForPreview() -> AimTracker {
+        let tracker = AimTracker(context: PersistenceController.preview.container.viewContext)
+        tracker.title = "Sample Task"
+        tracker.is_completed = false
+        tracker.curr_progress = 0
+        tracker.total_progress = 100
+        tracker.default_step = 5
+        tracker.start_date = Date()
+        tracker.id = UUID()
+        return tracker
+    }
+}
