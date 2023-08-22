@@ -53,6 +53,21 @@ struct TrackerDetailView: View {
         let detail = tracker.is_completed ? general_detail + "\n" + completed_detail : general_detail
         
         VStack {
+            HStack {
+                Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
+                    Image(systemName: "arrowtriangle.backward.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 25, height: 25)
+                }
+                .padding(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            
+            // The Spacer is used for locating the button
+            // TODO: change size of spacer after finishing up the content
+            Spacer()
+            
             Text(detail)
             
             if !tracker.is_completed {
@@ -91,22 +106,13 @@ struct TrackerDetailView: View {
                 .padding()
             }
             
-            Button(action: { self.presentationMode.wrappedValue.dismiss()}) {
-                Text("Custom go back")
-            }
+
         }
         .sheet(isPresented: $isEditing) {
             EditOrCreateTrackerView(trackerToEdit: tracker)
                 .environment(\.managedObjectContext, viewContext)
         }
         .navigationBarBackButtonHidden(true)
-        
-        // Nav bar back button?
-//        .navigationBarItems(leading:
-//            Button(action: { self.presentationMode.wrappedValue.dismiss()}) {
-//                Text("Custom go back")
-//            }
-//        )
     }
     
     private func incrementProgress() {
@@ -136,15 +142,15 @@ extension UINavigationController: UIGestureRecognizerDelegate {
     }
 }
 
-//struct TrackerDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TrackerDetailView()
-//    }
-//}
-
 struct TrackerDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        TrackerDetailView(tracker: AimTracker.sampleForPreview())
     }
 }
+
+//struct TrackerDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//    }
+//}
 
