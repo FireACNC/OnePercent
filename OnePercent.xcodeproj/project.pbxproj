@@ -12,8 +12,13 @@
 		150A53BB2A8007E10037D306 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150A53BA2A8007E10037D306 /* TimerView.swift */; };
 		151894C32A51D07600145985 /* TrackerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151894C22A51D07600145985 /* TrackerDetailView.swift */; };
 		1535D8592A913E51008DB36E /* TaskCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1535D8582A913E51008DB36E /* TaskCardView.swift */; };
-		1535D85D2A9267C5008DB36E /* LeagueSpartan-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1535D85B2A9267C5008DB36E /* LeagueSpartan-Bold.otf */; };
-		1535D85E2A9267C5008DB36E /* Uni Sans Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1535D85C2A9267C5008DB36E /* Uni Sans Heavy.otf */; };
+		1535D86C2A943881008DB36E /* CooperHewitt-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1535D8652A943881008DB36E /* CooperHewitt-Heavy.otf */; };
+		1535D86D2A943881008DB36E /* CooperHewitt-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1535D8662A943881008DB36E /* CooperHewitt-Semibold.otf */; };
+		1535D86E2A943881008DB36E /* CooperHewitt-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1535D8672A943881008DB36E /* CooperHewitt-Thin.otf */; };
+		1535D86F2A943881008DB36E /* CooperHewitt-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1535D8682A943881008DB36E /* CooperHewitt-Bold.otf */; };
+		1535D8702A943881008DB36E /* CooperHewitt-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1535D8692A943881008DB36E /* CooperHewitt-Medium.otf */; };
+		1535D8712A943881008DB36E /* CooperHewitt-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1535D86A2A943881008DB36E /* CooperHewitt-Light.otf */; };
+		1535D8722A943881008DB36E /* CooperHewitt-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1535D86B2A943881008DB36E /* CooperHewitt-Book.otf */; };
 		15453BBC29B058F800245605 /* OnePercentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15453BBB29B058F800245605 /* OnePercentApp.swift */; };
 		15453BBE29B058F800245605 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15453BBD29B058F800245605 /* ContentView.swift */; };
 		15453BC029B058F900245605 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15453BBF29B058F900245605 /* Assets.xcassets */; };
@@ -34,8 +39,13 @@
 		150A53BA2A8007E10037D306 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		151894C22A51D07600145985 /* TrackerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerDetailView.swift; sourceTree = "<group>"; };
 		1535D8582A913E51008DB36E /* TaskCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardView.swift; sourceTree = "<group>"; };
-		1535D85B2A9267C5008DB36E /* LeagueSpartan-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LeagueSpartan-Bold.otf"; sourceTree = "<group>"; };
-		1535D85C2A9267C5008DB36E /* Uni Sans Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Uni Sans Heavy.otf"; sourceTree = "<group>"; };
+		1535D8652A943881008DB36E /* CooperHewitt-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Heavy.otf"; sourceTree = "<group>"; };
+		1535D8662A943881008DB36E /* CooperHewitt-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Semibold.otf"; sourceTree = "<group>"; };
+		1535D8672A943881008DB36E /* CooperHewitt-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Thin.otf"; sourceTree = "<group>"; };
+		1535D8682A943881008DB36E /* CooperHewitt-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Bold.otf"; sourceTree = "<group>"; };
+		1535D8692A943881008DB36E /* CooperHewitt-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Medium.otf"; sourceTree = "<group>"; };
+		1535D86A2A943881008DB36E /* CooperHewitt-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Light.otf"; sourceTree = "<group>"; };
+		1535D86B2A943881008DB36E /* CooperHewitt-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Book.otf"; sourceTree = "<group>"; };
 		15453BB829B058F800245605 /* OnePercent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnePercent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15453BBB29B058F800245605 /* OnePercentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePercentApp.swift; sourceTree = "<group>"; };
 		15453BBD29B058F800245605 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,8 +82,13 @@
 		1535D85A2A926791008DB36E /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				1535D85B2A9267C5008DB36E /* LeagueSpartan-Bold.otf */,
-				1535D85C2A9267C5008DB36E /* Uni Sans Heavy.otf */,
+				1535D8682A943881008DB36E /* CooperHewitt-Bold.otf */,
+				1535D86B2A943881008DB36E /* CooperHewitt-Book.otf */,
+				1535D8652A943881008DB36E /* CooperHewitt-Heavy.otf */,
+				1535D86A2A943881008DB36E /* CooperHewitt-Light.otf */,
+				1535D8692A943881008DB36E /* CooperHewitt-Medium.otf */,
+				1535D8662A943881008DB36E /* CooperHewitt-Semibold.otf */,
+				1535D8672A943881008DB36E /* CooperHewitt-Thin.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -209,10 +224,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1535D85D2A9267C5008DB36E /* LeagueSpartan-Bold.otf in Resources */,
+				1535D86F2A943881008DB36E /* CooperHewitt-Bold.otf in Resources */,
+				1535D8722A943881008DB36E /* CooperHewitt-Book.otf in Resources */,
+				1535D86D2A943881008DB36E /* CooperHewitt-Semibold.otf in Resources */,
+				1535D8712A943881008DB36E /* CooperHewitt-Light.otf in Resources */,
+				1535D86C2A943881008DB36E /* CooperHewitt-Heavy.otf in Resources */,
 				15453BC329B058F900245605 /* Preview Assets.xcassets in Resources */,
+				1535D86E2A943881008DB36E /* CooperHewitt-Thin.otf in Resources */,
 				15453BC029B058F900245605 /* Assets.xcassets in Resources */,
-				1535D85E2A9267C5008DB36E /* Uni Sans Heavy.otf in Resources */,
+				1535D8702A943881008DB36E /* CooperHewitt-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

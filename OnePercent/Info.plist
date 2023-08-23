@@ -4,8 +4,12 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Uni Sans Heavy.otf</string>
-		<string>LeagueSpartan-Bold.otf</string>
+		<string>CooperHewitt-Bold.otf</string>
+		<string>CooperHewitt-Book.otf</string>
+		<string>CooperHewitt-Heavy.otf</string>
+		<string>CooperHewitt-Medium.otf</string>
+		<string>CooperHewitt-Semibold.otf</string>
+		<string>CooperHewitt-Thin.otf</string>
 	</array>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string>OnePercent will only send notifications when your timer is up or if you have scheduled reminder for your aim.</string>

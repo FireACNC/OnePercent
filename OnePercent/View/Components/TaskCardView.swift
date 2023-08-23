@@ -8,19 +8,33 @@
 import SwiftUI
 
 struct TaskCardView: View {
-    var tracker: AimTracker
+    let tracker: AimTracker
+    @State private var cardColor = Color("color.secondary")
+    @Binding private var percentageCompleted: Double
+    
+    init(tracker: AimTracker, percentageCompleted: Binding<Double>) {
+        self.tracker = tracker
+        // TODO: set color?
+        
+        _percentageCompleted = percentageCompleted
+    }
     
     var body: some View {
-        Rectangle()
-            .fill(Color.white)
-//            .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 2)
-    }
-}
-
-
-
-struct TaskCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskCardView(tracker: AimTracker.sampleForPreview())
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+                .fill(cardColor)
+                .padding(8)
+                .opacity(0.5)
+                .frame(width:UIScreen.main.bounds.width)
+                .shadow(color: Color("color.absolute").opacity(0.2), radius: 5)
+            
+            HStack {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(cardColor)
+                    .padding(8)
+                    .frame(width:UIScreen.main.bounds.width * percentageCompleted, alignment: .leading)
+                Spacer()
+            }
+        }
     }
 }

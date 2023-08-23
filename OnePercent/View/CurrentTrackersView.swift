@@ -20,7 +20,7 @@ struct CurrentTrackersView: View {
     @State private var isShowingAddView = false
     
     init() {
-        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "UniSansHeavyCAPS", size: 40)!]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "CooperHewitt-Heavy", size: 40)!]
     }
     
     var body: some View {
@@ -28,13 +28,19 @@ struct CurrentTrackersView: View {
             VStack {
                 if items.isEmpty {
                     Text("Time to start a new aim!")
+                        .font(Font.custom("LeagueSpartan-Bold", size: 30))
                         .padding()
                 } else {
                     List {
                         ForEach(items) { tracker in
+                            let bindingPercentage = Binding<Double>(
+                                get: { Double(tracker.curr_progress) / Double(tracker.total_progress) },
+                                set: { _ in }
+                            )
+                            
                             Text(tracker.title ?? "")
-                                .font(.title)
-                                .foregroundColor(.black)
+                                .font(Font.custom("CooperHewitt-Bold", size: 30))
+                                .foregroundColor(Color("color.text"))
                                 .padding()
                             
                                 .background(
@@ -42,7 +48,7 @@ struct CurrentTrackersView: View {
                                         .opacity(0)
                                 )
                                 .listRowBackground(
-                                    TaskCardView(tracker: tracker)
+                                    TaskCardView(tracker: tracker, percentageCompleted: bindingPercentage)
                                 )
                                 .listRowSeparator(.hidden)
                         }
@@ -68,7 +74,9 @@ struct CurrentTrackersView: View {
 //                }
 //            }
             .navigationTitle("My Aim Trackers")
+            .background(Color("color.background"))
         }
+
         .fullScreenCover(isPresented: $isShowingAddView) {
             EditOrCreateTrackerView().environment(\.managedObjectContext, viewContext)
         }

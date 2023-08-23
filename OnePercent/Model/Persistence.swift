@@ -19,6 +19,7 @@ class PersistenceController: ObservableObject {
             newItem.title = "Current Aim " + String(item_id)
             newItem.total_progress = 5
             newItem.default_step = 1
+            newItem.curr_progress = Int64(index)
             newItem.id = UUID()
             newItem.order = Int64(item_id)
             item_id += 1
