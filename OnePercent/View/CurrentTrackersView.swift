@@ -20,7 +20,10 @@ struct CurrentTrackersView: View {
     @State private var isShowingAddView = false
     
     init() {
-        UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "CooperHewitt-Heavy", size: 40)!]
+        UINavigationBar.appearance().largeTitleTextAttributes = [
+            .font: UIFont(name: "CooperHewitt-Heavy", size: 40)!,
+            .baselineOffset: -5
+        ]
     }
     
     var body: some View {
@@ -41,6 +44,7 @@ struct CurrentTrackersView: View {
                             Text(tracker.title ?? "")
                                 .font(Font.custom("CooperHewitt-Bold", size: 30))
                                 .foregroundColor(Color("color.text"))
+                                .baselineOffset(-5)
                                 .padding()
                             
                                 .background(
@@ -61,18 +65,18 @@ struct CurrentTrackersView: View {
                     .listStyle(.plain)
                 }
             }
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    EditButton()
-//                }
-//                ToolbarItem {
-//                    Button(action: {
-//                        isShowingAddView = true
-//                    }) {
-//                        Label("Add Aim Tracker", systemImage: "plus")
-//                    }
-//                }
-//            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    EditButton()
+                }
+                ToolbarItem {
+                    Button(action: {
+                        isShowingAddView = true
+                    }) {
+                        Label("Add Aim Tracker", systemImage: "plus")
+                    }
+                }
+            }
             .navigationTitle("My Aim Trackers")
             .background(Color("color.background"))
         }

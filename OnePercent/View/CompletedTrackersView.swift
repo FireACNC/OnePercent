@@ -25,14 +25,31 @@ struct CompletedTrackersView: View {
                 } else {
                     List {
                         ForEach(items) { tracker in
-                            NavigationLink(destination: TrackerDetailView(tracker: tracker)) {
-                                Text(tracker.title ?? "")
-                            }
+                            let bindingPercentage = Binding<Double>(
+                                get: { 1.0 },
+                                set: { _ in }
+                            )
+                            
+                            Text(tracker.title ?? "")
+                                .font(Font.custom("CooperHewitt-Bold", size: 30))
+                                .foregroundColor(Color("color.text"))
+                                .baselineOffset(-5)
+                                .padding()
+                            
+                                .background(
+                                    NavigationLink("", destination: TrackerDetailView(tracker: tracker))
+                                        .opacity(0)
+                                )
+                                .listRowBackground(
+                                    TaskCardView(tracker: tracker, percentageCompleted: bindingPercentage)
+                                )
+                                .listRowSeparator(.hidden)
                         }
                         .onDelete { indexSet in
                             deleteTrackers(offsets: indexSet, from: viewContext, items: items, reordering: false)
                         }
                     }
+                    .listStyle(.plain)
                 }
             }
             .toolbar {
@@ -41,6 +58,7 @@ struct CompletedTrackersView: View {
                 }
             }
             .navigationTitle("Completed Trackers")
+            .background(Color("color.background"))
         }
     }
 }

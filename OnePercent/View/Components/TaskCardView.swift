@@ -9,7 +9,8 @@ import SwiftUI
 
 struct TaskCardView: View {
     let tracker: AimTracker
-    @State private var cardColor = Color("color.secondary")
+    private let cardColor = Color("color.secondary")
+    private let cardColorLight = Color("color.secondary.light")
     @Binding private var percentageCompleted: Double
     
     init(tracker: AimTracker, percentageCompleted: Binding<Double>) {
@@ -20,21 +21,31 @@ struct TaskCardView: View {
     }
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(cardColor)
-                .padding(8)
-                .opacity(0.5)
-                .frame(width:UIScreen.main.bounds.width)
-                .shadow(color: Color("color.absolute").opacity(0.2), radius: 5)
-            
-            HStack {
+        if (percentageCompleted != 1.0) {
+            // Current trackers
+            ZStack {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(cardColor)
                     .padding(8)
-                    .frame(width:UIScreen.main.bounds.width * percentageCompleted, alignment: .leading)
-                Spacer()
+                    .opacity(0.5)
+                    .frame(width:UIScreen.main.bounds.width)
+                    .shadow(color: Color("color.absolute").opacity(0.2), radius: 5)
+                
+                HStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(cardColor)
+                        .padding(8)
+                        .frame(width:UIScreen.main.bounds.width * percentageCompleted, alignment: .leading)
+                    Spacer()
+                }
             }
+        } else {
+            // Completed trackers
+            RoundedRectangle(cornerRadius: 20)
+                .fill(LinearGradient(gradient: Gradient(colors: [cardColor, cardColorLight]), startPoint: .leading, endPoint: .trailing))
+                .padding(8)
+                .frame(width:UIScreen.main.bounds.width)
+                .shadow(color: Color("color.absolute").opacity(0.2), radius: 5)
         }
     }
 }
