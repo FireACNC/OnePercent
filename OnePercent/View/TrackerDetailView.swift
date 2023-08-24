@@ -51,62 +51,68 @@ struct TrackerDetailView: View {
             """
         
         let detail = tracker.is_completed ? general_detail + "\n" + completed_detail : general_detail
-        
-        VStack {
-            HStack {
-                Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-                    Image(systemName: "arrowtriangle.backward.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 25, height: 25)
-                }
-                .padding(.leading)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            
-            // The Spacer is used for locating the button
-            // TODO: change size of spacer after finishing up the content
-            Spacer()
-            
-            Text(detail)
-            
-            if !tracker.is_completed {
-                if !tracker.timer_only {
-                    Button(action: {
-                        incrementProgress()
-                        if tracker.curr_progress >= tracker.total_progress {
-                            congratsPageController.completedAimTitle = tracker.title!
-                            congratsPageController.isShowingCongratsPage = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                completeTracker(tracker: tracker, from: viewContext, items: items)
-                                self.presentationMode.wrappedValue.dismiss()
-                                // TODO: (late) maybe add a guide for checking complete?
-                            }
-                        }
-                    }) {
-                        Text("Increment Progress")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                } else {
-                    Text("You can only increment the progress via the timer.")
-                        .padding()
-                }
-            }
-            
-            // There's a bug if add toolbar to the navigation link, it may sometimes show duplicated toolbar and thus have a glitch.
-            if !tracker.challenger {
-                Button(action: {
-                    isEditing = true
-                }) {
-                    Text("Edit")
-                }
-                .padding()
-            }
-            
+        ZStack {
+            Color("color.background").ignoresSafeArea()
 
+            VStack {
+                HStack {
+                    Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
+                        Image(systemName: "arrowshape.turn.up.backward.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 25, height: 25)
+                    }
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                Text(tracker.title ?? "")
+                    .font(Font.custom("CooperHewitt-Heavy", size: 30))
+                    .padding()
+                    .baselineOffset(-5)
+                
+                // The Spacer is used for locating the button
+                // TODO: change size of spacer after finishing up the content
+                Spacer()
+                
+                //            Text(detail)
+                
+                if !tracker.is_completed {
+                    if !tracker.timer_only {
+                        Button(action: {
+                            incrementProgress()
+                            if tracker.curr_progress >= tracker.total_progress {
+                                congratsPageController.completedAimTitle = tracker.title!
+                                congratsPageController.isShowingCongratsPage = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    completeTracker(tracker: tracker, from: viewContext, items: items)
+                                    self.presentationMode.wrappedValue.dismiss()
+                                    // TODO: (late) maybe add a guide for checking complete?
+                                }
+                            }
+                        }) {
+                            Text("Increment Progress")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                    } else {
+                        Text("You can only increment the progress via the timer.")
+                            .padding()
+                    }
+                }
+                
+                // There's a bug if add toolbar to the navigation link, it may sometimes show duplicated toolbar and thus have a glitch.
+                if !tracker.challenger {
+                    Button(action: {
+                        isEditing = true
+                    }) {
+                        Text("Edit")
+                    }
+                    .padding()
+                }
+            }
         }
         .sheet(isPresented: $isEditing) {
             EditOrCreateTrackerView(trackerToEdit: tracker)

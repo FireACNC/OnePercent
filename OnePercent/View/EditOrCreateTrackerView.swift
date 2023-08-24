@@ -55,13 +55,25 @@ struct EditOrCreateTrackerView: View {
             _min_time_index = State(initialValue: Int(trackerToEdit.min_time_index))
             _challenger = State(initialValue: trackerToEdit.challenger)
         }
+        
+        UINavigationBar.appearance().largeTitleTextAttributes = [
+            .font: UIFont(name: "CooperHewitt-Heavy", size: 40)!,
+            .baselineOffset: -5
+        ]
     }
     
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Title")) {
+                Section(header: Text("Title")
+                    .font(Font.custom("CooperHewitt-Medium", size: 15))
+                    .baselineOffset(-1)
+                ) {
                     TextField("My New Aim", text: $title)
+                        .font(Font.custom("CooperHewitt-Medium", size: 25))
+                        .baselineOffset(-1)
+                        .padding(5)
+                    
                         .focused($focusedField, equals: .field)
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -70,28 +82,42 @@ struct EditOrCreateTrackerView: View {
                         }
                 }
                 
-                Section(header: Text("Total Progress")) {
+                Section(header: Text("Total Progress")
+                    .font(Font.custom("CooperHewitt-Medium", size: 15))
+                    .baselineOffset(-1)
+                ) {
                     TextField("100", text: $total_progress)
+                        .font(Font.custom("CooperHewitt-Medium", size: 25))
+                        .baselineOffset(-1)
+                        .padding(5)
+                    
                         .keyboardType(.numberPad)
                     if showTotalZeroWarning {
                         Text("Total Progress must be greater than 0")
                             .foregroundColor(.red)
-                            .font(.caption)
+                            .font(Font.custom("CooperHewitt-Medium", size: 20))
                     }
                 }
                 
-                Section(header: Text("Default Step")) {
+                Section(header: Text("Default Step")
+                    .font(Font.custom("CooperHewitt-Medium", size: 15))
+                    .baselineOffset(-1)
+                ) {
                     TextField("1", text: $default_step)
+                        .font(Font.custom("CooperHewitt-Medium", size: 25))
+                        .baselineOffset(-1)
+                        .padding(5)
+                    
                         .keyboardType(.numberPad)
                     if showStepZeroWarning {
                         Text("Default Step must be greater than 0")
                             .foregroundColor(.red)
-                            .font(.caption)
+                            .font(Font.custom("CooperHewitt-Medium", size: 20))
                     }
                     if showStepExceedingWarning {
                         Text("Default Step must be less than Total Progress")
                             .foregroundColor(.red)
-                            .font(.caption)
+                            .font(Font.custom("CooperHewitt-Medium", size: 20))
                     }
                 }
                 
@@ -141,6 +167,8 @@ struct EditOrCreateTrackerView: View {
                     }
                     
                 }
+                .tint(Color("color.secondary"))
+                .font(Font.custom("CooperHewitt-Medium", size: 20))
                 .onChange(of: total_progress, perform: { _ in
                     showTotalZeroWarning = false
                     showStepExceedingWarning = false
@@ -181,6 +209,8 @@ struct EditOrCreateTrackerView: View {
                     }
                 }
             }
+            .font(Font.custom("CooperHewitt-Medium", size: 20))
+            .baselineOffset(-5)
         }
     }
     

@@ -30,9 +30,14 @@ struct CurrentTrackersView: View {
         NavigationView {
             VStack {
                 if items.isEmpty {
-                    Text("Time to start a new aim!")
-                        .font(Font.custom("LeagueSpartan-Bold", size: 30))
-                        .padding()
+                    ZStack {
+                        Color("color.background").ignoresSafeArea()
+                        
+                        Text("Time to start a new aim!")
+                            .font(Font.custom("CooperHewitt-Bold", size: 30))
+                            .padding()
+                            .baselineOffset(-5)
+                    }
                 } else {
                     List {
                         ForEach(items) { tracker in
@@ -77,6 +82,8 @@ struct CurrentTrackersView: View {
                     }
                 }
             }
+            .font(Font.custom("CooperHewitt-Medium", size: 20))
+            .baselineOffset(-5)
             .navigationTitle("My Aim Trackers")
             .background(Color("color.background"))
         }

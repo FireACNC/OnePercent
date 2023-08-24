@@ -135,8 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				15453BBD29B058F800245605 /* ContentView.swift */,
-				150A53B82A7FFA1C0037D306 /* CompletedTrackersView.swift */,
 				158439BB2A61A7CE002A76CB /* CurrentTrackersView.swift */,
+				150A53B82A7FFA1C0037D306 /* CompletedTrackersView.swift */,
 				151894C22A51D07600145985 /* TrackerDetailView.swift */,
 				1500A9712A826ED200DB7C59 /* SettingsView.swift */,
 				150A53BA2A8007E10037D306 /* TimerView.swift */,
