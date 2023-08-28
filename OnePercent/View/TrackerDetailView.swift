@@ -124,10 +124,7 @@ struct TrackerDetailView: View {
                     Text("\(currentProgress)/\(tracker.total_progress)")
                         .font(Font.custom("CooperHewitt-Heavy", size: 30))
                         .baselineOffset(-5)
-                    
-                    // The Spacer is used for locating the button
-                    // TODO: change size of spacer after finishing up the content
-                    Spacer()
+
                     
                     //            Text(detail)
                     
@@ -145,17 +142,25 @@ struct TrackerDetailView: View {
                                     }
                                 }
                             }) {
-                                Text("Increment Progress")
+                                Image(systemName: "plus")
                                     .padding()
-                                    .background(Color.blue)
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
+                                    .frame(width: 250, height: 40)
                             }
+                            .buttonStyle(.borderedProminent)
+
                         } else {
                             Text("You can only increment the progress via the timer.")
+                                .font(Font.custom("CooperHewitt-Heavy", size: 20))
                                 .padding()
+                                .baselineOffset(-5)
+                                .multilineTextAlignment(.center)
                         }
                     }
+                    
+                    // The Spacer is used for locating the button
+                    Spacer()
                     
                     // There's a bug if add toolbar to the navigation link, it may sometimes show duplicated toolbar and thus have a glitch.
                     if !tracker.challenger {
@@ -166,6 +171,8 @@ struct TrackerDetailView: View {
                         }
                         .padding()
                     }
+                    
+                    Spacer()
                 }
             }
             .sheet(isPresented: $isEditing) {
@@ -177,13 +184,12 @@ struct TrackerDetailView: View {
     }
     
     private func incrementProgress() {
-        withAnimation {
-            tracker.curr_progress += tracker.default_step
-            currentProgress = Int(tracker.curr_progress)
-            percentageDone = Int((tracker.curr_progress * 200 + tracker.total_progress) / (2 * tracker.total_progress))
-            fractionDone = CGFloat(Double(tracker.curr_progress) / Double(tracker.total_progress))
-            save(context: viewContext)
-        }
+        tracker.curr_progress += tracker.default_step
+        currentProgress = Int(tracker.curr_progress)
+        percentageDone = Int((tracker.curr_progress * 200 + tracker.total_progress) / (2 * tracker.total_progress))
+        fractionDone = CGFloat(Double(tracker.curr_progress) / Double(tracker.total_progress))
+        save(context: viewContext)
+
     }
 }
 
