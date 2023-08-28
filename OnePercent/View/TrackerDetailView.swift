@@ -21,10 +21,16 @@ struct TrackerDetailView: View {
 
     @State private var currentProgress: Int
     @State private var isEditing = false
+    @State private var percentageDone: Int
+    @State private var fractionDone: CGFloat
+    @State private var waveStart: CGFloat = 0
+
     
     init(tracker: AimTracker) {
         self.tracker = tracker
         _currentProgress = State(initialValue: Int(tracker.curr_progress))
+        _percentageDone = State(initialValue: Int((tracker.curr_progress * 200 + tracker.total_progress) / (2 * tracker.total_progress)))
+        _fractionDone = State(initialValue: CGFloat(Double(tracker.curr_progress) / Double(tracker.total_progress)))
     }
     
     var body: some View {
@@ -50,82 +56,134 @@ struct TrackerDetailView: View {
             Completed on: \(itemDateFormatter.string(from: endDate))
             """
         
-        let detail = tracker.is_completed ? general_detail + "\n" + completed_detail : general_detail
-        ZStack {
-            Color("color.background").ignoresSafeArea()
-
-            VStack {
-                HStack {
-                    Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-                        Image(systemName: "arrowshape.turn.up.backward.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25, height: 25)
-                    }
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
+        let detailText = tracker.is_completed ? general_detail + "\n" + completed_detail : general_detail
+        
+        let wheelText = !tracker.is_completed ? "\(percentageDone)%" : "Done!"
+        let wheelTextSize: CGFloat = !tracker.is_completed ? 120 : 100
                 
-                Text(tracker.title ?? "")
-                    .font(Font.custom("CooperHewitt-Heavy", size: 30))
-                    .padding()
-                    .baselineOffset(-5)
+        NavigationView {
+            ZStack {
+                Color("color.background").ignoresSafeArea()
                 
-                // The Spacer is used for locating the button
-                // TODO: change size of spacer after finishing up the content
-                Spacer()
-                
-                //            Text(detail)
-                
-                if !tracker.is_completed {
-                    if !tracker.timer_only {
-                        Button(action: {
-                            incrementProgress()
-                            if tracker.curr_progress >= tracker.total_progress {
-                                congratsPageController.completedAimTitle = tracker.title!
-                                congratsPageController.isShowingCongratsPage = true
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    completeTracker(tracker: tracker, from: viewContext, items: items)
-                                    self.presentationMode.wrappedValue.dismiss()
-                                    // TODO: (late) maybe add a guide for checking complete?
-                                }
-                            }
-                        }) {
-                            Text("Increment Progress")
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                VStack {
+                    HStack {
+                        Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
+                            Image(systemName: "arrowshape.turn.up.backward.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 25, height: 25)
                         }
-                    } else {
-                        Text("You can only increment the progress via the timer.")
-                            .padding()
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                }
-                
-                // There's a bug if add toolbar to the navigation link, it may sometimes show duplicated toolbar and thus have a glitch.
-                if !tracker.challenger {
-                    Button(action: {
-                        isEditing = true
-                    }) {
-                        Text("Edit")
+                    
+                    Text(tracker.title ?? "")
+                        .font(Font.custom("CooperHewitt-Heavy", size: 30))
+                        .padding()
+                        .baselineOffset(-5)
+                    
+                    // https://www.youtube.com/watch?v=pTLfio2F2oQ
+                    GeometryReader { proxy in
+                        let size = proxy.size
+                        ZStack {
+                            Image (systemName: "circle.fill")
+                                .resizable ()
+                                .renderingMode (.template)
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color("color.secondary.light").opacity(0.3))
+                                .scaleEffect(x: 0.8, y: 0.8)
+                            
+                            Wave(progress: fractionDone, waveHeight: 0.05, offset: waveStart)
+                                .fill(Color("color.secondary"))
+                                .overlay {
+                                    Text(wheelText)
+                                        .font(Font.custom("CooperHewitt-Heavy", size: wheelTextSize))
+                                        .padding()
+                                        .baselineOffset(-30)
+                                        .foregroundColor(Color("color.primary"))
+                                }
+                                .mask {
+                                    Image (systemName: "circle.fill")
+                                        .resizable ()
+                                        .aspectRatio(contentMode: .fit)
+                                        .scaleEffect(x: 0.8, y: 0.8)
+                                        .padding(20)
+                                }
+                            
+                        }
+                        .frame(width: size.width, height: size.height, alignment: .center)
+                        .onAppear {
+                            withAnimation(.linear(duration: 2).repeatForever(autoreverses:false)) {
+                                // Manually adjust wave size
+                                waveStart = (size.width - 30)
+                            }
+                        }
                     }
-                    .padding()
+                    .frame(height: 400)
+                    
+                    Text("\(currentProgress)/\(tracker.total_progress)")
+                        .font(Font.custom("CooperHewitt-Heavy", size: 30))
+                        .baselineOffset(-5)
+                    
+                    // The Spacer is used for locating the button
+                    // TODO: change size of spacer after finishing up the content
+                    Spacer()
+                    
+                    //            Text(detail)
+                    
+                    if !tracker.is_completed {
+                        if !tracker.timer_only {
+                            Button(action: {
+                                incrementProgress()
+                                if tracker.curr_progress >= tracker.total_progress {
+                                    congratsPageController.completedAimTitle = tracker.title!
+                                    congratsPageController.isShowingCongratsPage = true
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        completeTracker(tracker: tracker, from: viewContext, items: items)
+                                        self.presentationMode.wrappedValue.dismiss()
+                                        // TODO: (late) maybe add a guide for checking complete?
+                                    }
+                                }
+                            }) {
+                                Text("Increment Progress")
+                                    .padding()
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                        } else {
+                            Text("You can only increment the progress via the timer.")
+                                .padding()
+                        }
+                    }
+                    
+                    // There's a bug if add toolbar to the navigation link, it may sometimes show duplicated toolbar and thus have a glitch.
+                    if !tracker.challenger {
+                        Button(action: {
+                            isEditing = true
+                        }) {
+                            Text("Edit")
+                        }
+                        .padding()
+                    }
                 }
             }
-        }
-        .sheet(isPresented: $isEditing) {
-            EditOrCreateTrackerView(trackerToEdit: tracker)
-                .environment(\.managedObjectContext, viewContext)
+            .sheet(isPresented: $isEditing) {
+                EditOrCreateTrackerView(trackerToEdit: tracker)
+                    .environment(\.managedObjectContext, viewContext)
+            }
         }
         .navigationBarBackButtonHidden(true)
     }
     
     private func incrementProgress() {
-        tracker.curr_progress += tracker.default_step
-        currentProgress = Int(tracker.curr_progress)
-        save(context: viewContext)
-
+        withAnimation {
+            tracker.curr_progress += tracker.default_step
+            currentProgress = Int(tracker.curr_progress)
+            percentageDone = Int((tracker.curr_progress * 200 + tracker.total_progress) / (2 * tracker.total_progress))
+            fractionDone = CGFloat(Double(tracker.curr_progress) / Double(tracker.total_progress))
+            save(context: viewContext)
+        }
     }
 }
 
@@ -148,15 +206,15 @@ extension UINavigationController: UIGestureRecognizerDelegate {
     }
 }
 
-struct TrackerDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        TrackerDetailView(tracker: AimTracker.sampleForPreview())
-    }
-}
-
 //struct TrackerDetailView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//        TrackerDetailView(tracker: AimTracker.sampleForPreview())
 //    }
 //}
+
+struct TrackerDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}
 

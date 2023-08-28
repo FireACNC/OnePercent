@@ -30,6 +30,7 @@
 		15C69F9E29BBDE2E0016B4C5 /* EditOrCreateTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C69F9D29BBDE2E0016B4C5 /* EditOrCreateTrackerView.swift */; };
 		15C69FA029BBDF6F0016B4C5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C69F9F29BBDF6F0016B4C5 /* Utils.swift */; };
 		15D8A7432A643E05000EDB6A /* CongratsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D8A7422A643E05000EDB6A /* CongratsPageView.swift */; };
+		15F9AF092A9C3C9500E10B65 /* WaveShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9AF082A9C3C9500E10B65 /* WaveShape.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		15C69F9D29BBDE2E0016B4C5 /* EditOrCreateTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOrCreateTrackerView.swift; sourceTree = "<group>"; };
 		15C69F9F29BBDF6F0016B4C5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		15D8A7422A643E05000EDB6A /* CongratsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratsPageView.swift; sourceTree = "<group>"; };
+		15F9AF082A9C3C9500E10B65 /* WaveShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveShape.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				1535D8582A913E51008DB36E /* TaskCardView.swift */,
+				15F9AF082A9C3C9500E10B65 /* WaveShape.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15C69F9C29BBD7030016B4C5 /* TrackerActions.swift in Sources */,
+				15F9AF092A9C3C9500E10B65 /* WaveShape.swift in Sources */,
 				150A53B92A7FFA1C0037D306 /* CompletedTrackersView.swift in Sources */,
 				15453BC529B058F900245605 /* Persistence.swift in Sources */,
 				15453BBE29B058F800245605 /* ContentView.swift in Sources */,

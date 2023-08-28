@@ -57,6 +57,8 @@ struct CompletedTrackersView: View {
                     EditButton()
                 }
             }
+            .font(Font.custom("CooperHewitt-Medium", size: 20))
+            .baselineOffset(-5)
             .navigationTitle("Completed Trackers")
             .background(Color("color.background"))
         }
