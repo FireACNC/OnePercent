@@ -57,6 +57,7 @@ struct TrackerDetailView: View {
             """
         
         let detailText = tracker.is_completed ? general_detail + "\n" + completed_detail : general_detail
+        // The details might be use in later implementations
         
         let wheelText = !tracker.is_completed ? "\(percentageDone)%" : "Done!"
         let wheelTextSize: CGFloat = !tracker.is_completed ? 120 : 100

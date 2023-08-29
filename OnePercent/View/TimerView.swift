@@ -37,112 +37,137 @@ struct TimerView: View {
     @State private var invalidTimeValueString = "0 secs"
 
     var body: some View {
-        VStack {
-            // Aim selection
-            if (!items.isEmpty) {
-                if (!isTimerStarted) {
-                    Picker("Select Aim", selection: $selectedTracker) {
-                        ForEach(items) { tracker in
-                            Text(tracker.title ?? "").tag(tracker as AimTracker?)
+        ZStack {
+            Color("color.background").ignoresSafeArea()
+            
+            VStack {
+                // Aim selection
+                if (!items.isEmpty) {
+                    if (!isTimerStarted) {
+                        Menu {
+                            Picker(selection: $selectedTracker) {
+                                ForEach(items) { tracker in
+                                    Text(tracker.title ?? "")
+                                        .tag(tracker as AimTracker?)
+                                        .font(Font.custom("CooperHewitt-Heavy", size: 30))
+                                }
+                            } label: {}
+                        } label: {
+                            Text(selectedTracker == nil ? "Select Aim" : selectedTracker!.title ?? "")
+                                .font(Font.custom("CooperHewitt-Heavy", size: 30))
+                                .padding()
+                                .baselineOffset(-5)
+                        }.id(selectedTracker)
+
+                    } else {
+                        Text("\(selectedTracker?.title ?? "")")
+                            .font(Font.custom("CooperHewitt-Heavy", size: 40))
+                            .padding()
+                            .baselineOffset(-10)
+                            .foregroundColor(Color("color.secondary"))
+                    }
+                }
+
+                // Timer display
+                if (showClock) {
+                    Text("\(timeFormatted(timerValue))")
+                        .font(Font.custom("CooperHewitt-Heavy", size: 80))
+                        .padding()
+                        .baselineOffset(-10)
+                }
+
+                // Custom time selection
+                if (showTimerPicker) {
+                    HStack {
+                        TimerNumberPicker(title: "Hours", value: $hours, range: 0...23)
+                        TimerNumberPicker(title: "Minutes", value: $minutes, range: 0...59)
+                        TimerNumberPicker(title: "Seconds", value: $seconds, range: 0...59)
+                    }
+                    .padding()
+                }
+                
+                // Start and reset buttons
+                HStack {
+                    if (!isTimerStarted) {
+                        Button(action: startTimer) {
+                            Text("Start")
+                                .font(Font.custom("CooperHewitt-Heavy", size: 30))
+                                .padding()
+                                .baselineOffset(-5)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                                .frame(width: 250, height: 40)
+                        }
+                        .buttonStyle(.borderedProminent)
+                    } else {
+                        if (isTimerRunning) {
+                            Button(action: pauseTimer) {
+                                Text("Pause")
+                                    .font(Font.custom("CooperHewitt-Heavy", size: 20))
+                                    .baselineOffset(-5)
+                                    .padding()
+                                    .background(Color("color.secondary"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                        } else {
+                            Button(action: resumeTimer) {
+                                Text("Resume")
+                                    .font(Font.custom("CooperHewitt-Heavy", size: 20))
+                                    .baselineOffset(-5)
+                                    .padding()
+                                    .background(Color("color.secondary.light"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        
+                        Button(action: {
+                            // prevent from crashing if cancel when the timer goes off
+                            if (timerValue <= 1) {
+                                return
+                            }
+                            pauseTimer()
+                            showingCancelConfirmation = true
+                        }) {
+                            Text("Cancel")
+                                .font(Font.custom("CooperHewitt-Heavy", size: 20))
+                                .baselineOffset(-5)
+                                .padding()
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                         }
                     }
-                    .pickerStyle(.menu)
-                    .padding()
-                } else {
-                    Text("\(selectedTracker?.title ?? "")")
-                        .padding()
-                }
-            }
-
-            // Timer display
-            if (showClock) {
-                Text("\(timeFormatted(timerValue))")
-                    .font(.largeTitle)
-                    .padding()
-            }
-
-            // Custom time selection
-            if (showTimerPicker) {
-                HStack {
-                    TimerNumberPicker(title: "Hours", value: $hours, range: 0...24)
-                    TimerNumberPicker(title: "Minutes", value: $minutes, range: 0...59)
-                    TimerNumberPicker(title: "Seconds", value: $seconds, range: 0...59)
                 }
                 .padding()
+                
+                Text(invalidTime ? "Please select a valid time greater than \(invalidTimeValueString)" : " ")
+                    .font(Font.custom("CooperHewitt-Heavy", size: 15))
+                    .baselineOffset(-10)
+                    .foregroundColor(Color.red)
+                    .offset(y:-15)
             }
-            
-            // Start and reset buttons
-            HStack {
-                if (!isTimerStarted) {
-                    Button(action: startTimer) {
-                        Text("Start")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                            .frame(width: 250, height: 40)
-                    }
-                    .buttonStyle(.borderedProminent)
-                } else {
-                    if (isTimerRunning) {
-                        Button(action: pauseTimer) {
-                            Text("Pause")
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
-                    } else {
-                        Button(action: resumeTimer) {
-                            Text("Resume")
-                                .padding()
-                                .background(Color.green)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
-                    }
-                    
-                    Button(action: {
-                        // prevent from crashing if cancel when the timer goes off
-                        if (timerValue <= 1) {
-                            return
-                        }
-                        pauseTimer()
-                        showingCancelConfirmation = true
-                    }) {
-                        Text("Cancel")
-                            .padding()
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                }
+            .navigationTitle("Timer")
+            .onAppear() {
+                selectedTracker = items.first
             }
-            .padding()
-            
-            Text(invalidTime ? "Please select a valid time greater than \(invalidTimeValueString)" : " ")
-                .foregroundColor(Color.red)
-                .offset(y:-15)
-        }
-        .navigationTitle("Timer")
-        .onAppear() {
-            selectedTracker = items.first
-        }
-        .alert(isPresented: $showingCancelConfirmation) {
-            Alert(
-                title: Text("Cancel Timer?"),
-                message: Text("Are you sure you want to cancel the timer? The time you just spent will not be recorded!"),
-                primaryButton: .default(Text("Cancel")) {
-                    resumeTimer()
-                },
-                secondaryButton: .destructive(Text("Confirm")) {
-                    cancelTimer()
-                }
-            )
-        }
-        .fullScreenCover(isPresented: $congratsPageController.isShowingCongratsPage) {
-            CongratsPageView()
-                .environmentObject(congratsPageController)
+            .alert(isPresented: $showingCancelConfirmation) {
+                Alert(
+                    title: Text("Cancel Timer?"),
+                    message: Text("Are you sure you want to cancel the timer? The time you just spent will not be recorded!"),
+                    primaryButton: .default(Text("Cancel")) {
+                        resumeTimer()
+                    },
+                    secondaryButton: .destructive(Text("Confirm")) {
+                        cancelTimer()
+                    }
+                )
+            }
+            .fullScreenCover(isPresented: $congratsPageController.isShowingCongratsPage) {
+                CongratsPageView()
+                    .environmentObject(congratsPageController)
+            }
         }
     }
 
@@ -240,12 +265,15 @@ struct TimerNumberPicker: View {
     var body: some View {
         VStack(spacing: 4) {
             Text(title)
-                .font(.caption)
+                .font(Font.custom("CooperHewitt-Medium", size: 15))
+                .baselineOffset(-5)
                 .foregroundColor(.secondary)
             
             Picker("", selection: $value) {
                 ForEach(Array(range), id: \.self) { number in
                     Text("\(number)")
+                        .font(Font.custom("CooperHewitt-Medium", size: 20))
+                        .baselineOffset(-5)
                 }
             }
             .pickerStyle(.wheel)
@@ -254,8 +282,16 @@ struct TimerNumberPicker: View {
     }
 }
 
+//struct TimerView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//    }
+//}
+
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        TimerView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environmentObject(CongratsPageController())
     }
 }

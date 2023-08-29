@@ -35,10 +35,10 @@ struct ContentView: View {
                         Label("Completed", systemImage: "checkmark.circle")
                     }
                 
-                Text("Settings")
-                    .tabItem {
-                        Label("Settings", systemImage: "gearshape")
-                    }
+//                Text("Settings")
+//                    .tabItem {
+//                        Label("Settings", systemImage: "gearshape")
+//                    }
             }
         }
     }
