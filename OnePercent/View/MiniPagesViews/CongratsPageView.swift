@@ -17,15 +17,33 @@ struct CongratsPageView: View {
     @EnvironmentObject private var congratsPageController: CongratsPageController
         
     var body: some View {
-        VStack {
-            Text("Congratulations!")
-                .font(.largeTitle)
+        ZStack {
+            RadialGradient(gradient: Gradient(colors: [
+                Color("color.secondary.light"),
+                Color("color.background")]), center: .center, startRadius: 0, endRadius: 500).ignoresSafeArea()
+
+            VStack {
+                Text("Congratulations🎉")
+                    .font(Font.custom("CooperHewitt-Heavy", size: 40))
+                    .baselineOffset(-5)
+                    .padding()
+                    .foregroundColor(Color("color.primary"))
+                
+                Text("You have reached your aim:\n \(congratsPageController.completedAimTitle)!")
+                    .font(Font.custom("CooperHewitt-Medium", size: 20))
+                    .baselineOffset(-5)
+                    .multilineTextAlignment(.center)
+//                    .padding()
+                
+                Button("Close") {
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .offset(y: 50)
                 .padding()
-            Text("You have reached your aim: \(congratsPageController.completedAimTitle)!")
-            Button("Close") {
-                presentationMode.wrappedValue.dismiss()
+                .font(Font.custom("CooperHewitt-Heavy", size: 20))
+                .baselineOffset(-5)
+                .foregroundColor(Color("color.secondary"))
             }
-            .padding()
         }
     }
 }
