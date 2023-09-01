@@ -30,8 +30,12 @@ struct CongratsPageView: View {
     }
 }
 
-//struct CongratsPageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CongratsPageView()
-//    }
-//}
+struct CongratsPageView_Previews: PreviewProvider {
+    static var previews: some View {
+        let controller = CongratsPageController()
+        controller.isShowingCongratsPage = true
+        controller.completedAimTitle = "Sample Aim"
+        
+        return CongratsPageView().environmentObject(controller)
+    }
+}

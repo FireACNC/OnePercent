@@ -83,6 +83,18 @@ struct TrackerDetailView: View {
                         .padding()
                         .baselineOffset(-5)
                     
+                    if (tracker.limit_time) {
+                        Text("End by \(itemDateFormatter.string(from: tracker.planned_end_date!))")
+                            .font(Font.custom("CooperHewitt-Medium", size: 15))
+                            .baselineOffset(-3)
+                            .offset(y: -20)
+                    } else {
+                        Text ("\n")
+                            .font(Font.custom("CooperHewitt-Medium", size: 15))
+                            .baselineOffset(-3)
+                            .offset(y: -20)
+                    }
+                    
                     // https://www.youtube.com/watch?v=pTLfio2F2oQ
                     GeometryReader { proxy in
                         let size = proxy.size
@@ -154,7 +166,7 @@ struct TrackerDetailView: View {
                         } else {
                             Text("You can only increment the progress via the timer.")
                                 .font(Font.custom("CooperHewitt-Heavy", size: 20))
-                                .padding()
+//                                .padding()
                                 .baselineOffset(-5)
                                 .multilineTextAlignment(.center)
                         }
