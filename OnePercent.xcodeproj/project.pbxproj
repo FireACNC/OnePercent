@@ -25,6 +25,7 @@
 		15453BC329B058F900245605 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15453BC229B058F900245605 /* Preview Assets.xcassets */; };
 		15453BC529B058F900245605 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15453BC429B058F900245605 /* Persistence.swift */; };
 		15453BC829B058F900245605 /* OnePercent.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 15453BC629B058F900245605 /* OnePercent.xcdatamodeld */; };
+		155803D42AA181EF0094A717 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155803D32AA181EF0094A717 /* AppIcon.swift */; };
 		158439BC2A61A7CE002A76CB /* CurrentTrackersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158439BB2A61A7CE002A76CB /* CurrentTrackersView.swift */; };
 		15C69F9C29BBD7030016B4C5 /* TrackerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C69F9B29BBD7030016B4C5 /* TrackerActions.swift */; };
 		15C69F9E29BBDE2E0016B4C5 /* EditOrCreateTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C69F9D29BBDE2E0016B4C5 /* EditOrCreateTrackerView.swift */; };
@@ -54,6 +55,7 @@
 		15453BC229B058F900245605 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		15453BC429B058F900245605 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		15453BC729B058F900245605 /* OnePercent.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OnePercent.xcdatamodel; sourceTree = "<group>"; };
+		155803D32AA181EF0094A717 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		158439BB2A61A7CE002A76CB /* CurrentTrackersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTrackersView.swift; sourceTree = "<group>"; };
 		15C69F9B29BBD7030016B4C5 /* TrackerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerActions.swift; sourceTree = "<group>"; };
 		15C69F9D29BBDE2E0016B4C5 /* EditOrCreateTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOrCreateTrackerView.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			children = (
 				1500A9702A8169F400DB7C59 /* Info.plist */,
 				15453BBB29B058F800245605 /* OnePercentApp.swift */,
+				155803D32AA181EF0094A717 /* AppIcon.swift */,
 				15C69F9929BBD4BF0016B4C5 /* View */,
 				15C69F9A29BBD4C90016B4C5 /* Model */,
 				15453BBF29B058F900245605 /* Assets.xcassets */,
@@ -248,6 +251,7 @@
 			files = (
 				15C69F9C29BBD7030016B4C5 /* TrackerActions.swift in Sources */,
 				15F9AF092A9C3C9500E10B65 /* WaveShape.swift in Sources */,
+				155803D42AA181EF0094A717 /* AppIcon.swift in Sources */,
 				150A53B92A7FFA1C0037D306 /* CompletedTrackersView.swift in Sources */,
 				15453BC529B058F900245605 /* Persistence.swift in Sources */,
 				15453BBE29B058F800245605 /* ContentView.swift in Sources */,
