@@ -19,9 +19,14 @@ struct CompletedTrackersView: View {
         NavigationView {
             VStack {
                 if items.isEmpty {
-                    Text("Go and complete an aim!")
-                        .padding()
-                    
+                    ZStack {
+                        Color("color.background").ignoresSafeArea()
+                        
+                        Text("Go and complete an aim!")
+                            .font(Font.custom("CooperHewitt-Bold", size: 30))
+                            .padding()
+                            .baselineOffset(-5)
+                    }                    
                 } else {
                     List {
                         ForEach(items) { tracker in
